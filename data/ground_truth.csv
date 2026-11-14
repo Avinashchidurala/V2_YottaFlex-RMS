@@ -1,0 +1,201 @@
+anomaly_id,entity_type,entity_id,anomaly_type,severity,description,detected_at,is_confirmed
+ANOM-2026-000001,return_request,RMA-2026-000751,late_return_no_override,high,Return requested 32 days after delivery (policy is 7 days) without manager override.,2026-02-15 18:22:00,1
+ANOM-2026-000002,return_line,RMAL-RMA-2026-000751-01,return_qty_exceeds_purchased,critical,Requested return quantity 4 exceeds order line quantity 1.,2026-02-16 04:22:00,1
+ANOM-2026-000003,refund,REF-2026-000755,refund_exceeds_paid,critical,Refund amount ₹7320.8 exceeds order line paid total ₹2788.8.,2026-01-20 05:23:00,1
+ANOM-2026-000004,return_request,RMA-2026-000758,late_return_no_override,high,Return requested 24 days after delivery (policy is 7 days) without manager override.,2026-02-08 08:46:00,1
+ANOM-2026-000005,return_line,RMAL-RMA-2026-000760-01,return_qty_exceeds_purchased,critical,Requested return quantity 4 exceeds order line quantity 1.,2026-01-17 22:03:00,1
+ANOM-2026-000006,refund,REF-2026-000757,refund_exceeds_paid,critical,Refund amount ₹5641.32 exceeds order line paid total ₹670.32.,2026-01-22 05:42:00,1
+ANOM-2026-000007,return_shipment,RTS-2026-000008,missing_shipment,medium,Return shipment RTS-2026-000008 lost in transit by carrier BlueDart.,2026-01-31 06:59:00,1
+ANOM-2026-000008,inventory_disposition,DISP-2026-000758,restock_before_inspection,high,Disposition record dated 2026-01-19 14:09:00 precedes inspection date 2026-01-21 14:09:00.,2026-01-19 14:09:00,1
+ANOM-2026-000009,return_request,RMA-2026-000765,late_return_no_override,high,Return requested 24 days after delivery (policy is 7 days) without manager override.,2026-02-06 17:17:00,1
+ANOM-2026-000010,refund,REF-2026-000761,duplicate_refund,critical,Duplicate payout attempted for request RMA-2026-000768. Duplicate of REF-2026-000760.,2026-01-22 15:29:00,1
+ANOM-2026-000011,return_line,RMAL-RMA-2026-000769-01,return_qty_exceeds_purchased,critical,Requested return quantity 4 exceeds order line quantity 1.,2026-01-17 18:30:00,1
+ANOM-2026-000012,refund,REF-2026-000764,refund_exceeds_paid,critical,Refund amount ₹6537.04 exceeds order line paid total ₹2231.04.,2026-01-21 16:25:00,1
+ANOM-2026-000013,return_request,RMA-2026-000772,late_return_no_override,high,Return requested 18 days after delivery (policy is 7 days) without manager override.,2026-02-02 11:24:00,1
+ANOM-2026-000014,refund,REF-2026-000767,refund_exceeds_paid,critical,Refund amount ₹7642.7 exceeds order line paid total ₹3026.7.,2026-01-24 14:39:00,1
+ANOM-2026-000015,inventory_disposition,DISP-2026-000767,restock_before_inspection,high,Disposition record dated 2026-01-19 09:54:00 precedes inspection date 2026-01-21 09:54:00.,2026-01-19 09:54:00,1
+ANOM-2026-000016,return_line,RMAL-RMA-2026-000778-01,return_qty_exceeds_purchased,critical,Requested return quantity 3 exceeds order line quantity 1.,2026-01-20 21:05:00,1
+ANOM-2026-000017,return_request,RMA-2026-000779,late_return_no_override,high,Return requested 13 days after delivery (policy is 7 days) without manager override.,2026-01-27 08:18:00,1
+ANOM-2026-000018,return_shipment,RTS-2026-000023,missing_shipment,medium,Return shipment RTS-2026-000023 lost in transit by carrier Delhivery.,2026-01-29 06:51:00,1
+ANOM-2026-000019,refund,REF-2026-000774,duplicate_refund,critical,Duplicate payout attempted for request RMA-2026-000785. Duplicate of REF-2026-000773.,2026-01-24 12:02:00,1
+ANOM-2026-000020,return_request,RMA-2026-000786,late_return_no_override,high,Return requested 33 days after delivery (policy is 7 days) without manager override.,2026-02-16 09:03:00,1
+ANOM-2026-000021,return_line,RMAL-RMA-2026-000787-01,return_qty_exceeds_purchased,critical,Requested return quantity 3 exceeds order line quantity 1.,2026-01-18 04:03:00,1
+ANOM-2026-000022,inventory_disposition,DISP-2026-000776,restock_before_inspection,high,Disposition record dated 2026-01-18 06:57:00 precedes inspection date 2026-01-20 06:57:00.,2026-01-18 06:57:00,1
+ANOM-2026-000023,refund,REF-2026-000779,refund_exceeds_paid,critical,Refund amount ₹12405.88 exceeds order line paid total ₹8966.88.,2026-01-25 10:54:00,1
+ANOM-2026-000024,return_request,RMA-2026-000793,late_return_no_override,high,Return requested 43 days after delivery (policy is 7 days) without manager override.,2026-02-25 12:56:00,1
+ANOM-2026-000025,return_shipment,RTS-2026-000032,missing_shipment,medium,Return shipment RTS-2026-000032 lost in transit by carrier BlueDart.,2026-01-25 09:59:00,1
+ANOM-2026-000026,return_line,RMAL-RMA-2026-000796-01,return_qty_exceeds_purchased,critical,Requested return quantity 3 exceeds order line quantity 1.,2026-01-19 21:17:00,1
+ANOM-2026-000027,return_request,RMA-2026-000800,late_return_no_override,high,Return requested 19 days after delivery (policy is 7 days) without manager override.,2026-02-01 09:14:00,1
+ANOM-2026-000028,refund,REF-2026-000785,refund_exceeds_paid,critical,Refund amount ₹31097.0 exceeds order line paid total ₹28428.0.,2026-01-20 11:38:00,1
+ANOM-2026-000029,refund,REF-2026-000787,duplicate_refund,critical,Duplicate payout attempted for request RMA-2026-000802. Duplicate of REF-2026-000786.,2026-01-22 16:54:00,1
+ANOM-2026-000030,inventory_disposition,DISP-2026-000785,restock_before_inspection,high,Disposition record dated 2026-01-17 05:53:00 precedes inspection date 2026-01-19 05:53:00.,2026-01-17 05:53:00,1
+ANOM-2026-000031,return_line,RMAL-RMA-2026-000805-01,return_qty_exceeds_purchased,critical,Requested return quantity 3 exceeds order line quantity 1.,2026-01-19 23:43:00,1
+ANOM-2026-000032,return_shipment,RTS-2026-000041,missing_shipment,medium,Return shipment RTS-2026-000041 lost in transit by carrier DTDC.,2026-01-31 03:33:00,1
+ANOM-2026-000033,return_request,RMA-2026-000807,late_return_no_override,high,Return requested 37 days after delivery (policy is 7 days) without manager override.,2026-02-21 16:25:00,1
+ANOM-2026-000034,return_request,RMA-2026-000814,late_return_no_override,high,Return requested 26 days after delivery (policy is 7 days) without manager override.,2026-02-09 11:36:00,1
+ANOM-2026-000035,return_line,RMAL-RMA-2026-000814-01,return_qty_exceeds_purchased,critical,Requested return quantity 3 exceeds order line quantity 1.,2026-02-09 16:36:00,1
+ANOM-2026-000036,inventory_disposition,DISP-2026-000793,restock_before_inspection,high,Disposition record dated 2026-01-19 11:05:00 precedes inspection date 2026-01-21 11:05:00.,2026-01-19 11:05:00,1
+ANOM-2026-000037,refund,REF-2026-000796,refund_exceeds_paid,critical,Refund amount ₹12730.76 exceeds order line paid total ₹11197.76.,2026-01-21 15:05:00,1
+ANOM-2026-000038,return_request,RMA-2026-000821,late_return_no_override,high,Return requested 19 days after delivery (policy is 7 days) without manager override.,2026-02-03 12:24:00,1
+ANOM-2026-000039,return_line,RMAL-RMA-2026-000823-01,return_qty_exceeds_purchased,critical,Requested return quantity 3 exceeds order line quantity 1.,2026-01-17 00:13:00,1
+ANOM-2026-000040,return_request,RMA-2026-000828,late_return_no_override,high,Return requested 45 days after delivery (policy is 7 days) without manager override.,2026-02-27 15:26:00,1
+ANOM-2026-000041,inventory_disposition,DISP-2026-000800,restock_before_inspection,high,Disposition record dated 2026-01-20 05:28:00 precedes inspection date 2026-01-22 05:28:00.,2026-01-20 05:28:00,1
+ANOM-2026-000042,refund,REF-2026-000805,refund_exceeds_paid,critical,Refund amount ₹8804.96 exceeds order line paid total ₹4740.96.,2026-01-23 17:04:00,1
+ANOM-2026-000043,return_line,RMAL-RMA-2026-000832-01,return_qty_exceeds_purchased,critical,Requested return quantity 4 exceeds order line quantity 1.,2026-01-15 03:50:00,1
+ANOM-2026-000044,return_request,RMA-2026-000835,late_return_no_override,high,Return requested 21 days after delivery (policy is 7 days) without manager override.,2026-02-03 14:55:00,1
+ANOM-2026-000045,refund,REF-2026-000809,refund_exceeds_paid,critical,Refund amount ₹12839.38 exceeds order line paid total ₹9527.38.,2026-01-17 06:44:00,1
+ANOM-2026-000046,refund,REF-2026-000810,duplicate_refund,critical,Duplicate payout attempted for request RMA-2026-000836. Duplicate of REF-2026-000809.,2026-01-17 07:44:00,1
+ANOM-2026-000047,return_line,RMAL-RMA-2026-000841-01,return_qty_exceeds_purchased,critical,Requested return quantity 4 exceeds order line quantity 1.,2026-01-17 22:39:00,1
+ANOM-2026-000048,return_request,RMA-2026-000842,late_return_no_override,high,Return requested 31 days after delivery (policy is 7 days) without manager override.,2026-02-15 10:42:00,1
+ANOM-2026-000049,refund,REF-2026-000817,refund_exceeds_paid,critical,Refund amount ₹3382.95 exceeds order line paid total ₹418.95.,2026-01-25 13:34:00,1
+ANOM-2026-000050,return_request,RMA-2026-000849,late_return_no_override,high,Return requested 15 days after delivery (policy is 7 days) without manager override.,2026-01-29 09:46:00,1
+ANOM-2026-000051,return_line,RMAL-RMA-2026-000850-01,return_qty_exceeds_purchased,critical,Requested return quantity 2 exceeds order line quantity 1.,2026-01-19 21:42:00,1
+ANOM-2026-000052,return_shipment,RTS-2026-000070,missing_shipment,medium,Return shipment RTS-2026-000070 lost in transit by carrier Delhivery.,2026-01-30 03:42:00,1
+ANOM-2026-000053,refund,REF-2026-000820,refund_exceeds_paid,critical,Refund amount ₹5132.94 exceeds order line paid total ₹3190.94.,2026-01-19 20:53:00,1
+ANOM-2026-000054,inventory_disposition,DISP-2026-000819,restock_before_inspection,high,Disposition record dated 2026-01-23 09:15:00 precedes inspection date 2026-01-25 09:15:00.,2026-01-23 09:15:00,1
+ANOM-2026-000055,return_request,RMA-2026-000856,late_return_no_override,high,Return requested 44 days after delivery (policy is 7 days) without manager override.,2026-02-26 16:03:00,1
+ANOM-2026-000056,return_line,RMAL-RMA-2026-000859-01,return_qty_exceeds_purchased,critical,Requested return quantity 4 exceeds order line quantity 1.,2026-01-20 01:39:00,1
+ANOM-2026-000057,return_shipment,RTS-2026-000079,missing_shipment,medium,Return shipment RTS-2026-000079 lost in transit by carrier Delhivery.,2026-01-26 09:44:00,1
+ANOM-2026-000058,return_request,RMA-2026-000863,late_return_no_override,high,Return requested 43 days after delivery (policy is 7 days) without manager override.,2026-02-26 12:12:00,1
+ANOM-2026-000059,refund,REF-2026-000831,refund_exceeds_paid,critical,Refund amount ₹38084.25 exceeds order line paid total ₹33758.25.,2026-01-19 00:50:00,1
+ANOM-2026-000060,return_line,RMAL-RMA-2026-000868-01,return_qty_exceeds_purchased,critical,Requested return quantity 3 exceeds order line quantity 1.,2026-01-18 18:34:00,1
+ANOM-2026-000061,inventory_disposition,DISP-2026-000829,restock_before_inspection,high,Disposition record dated 2026-01-20 08:34:00 precedes inspection date 2026-01-22 08:34:00.,2026-01-20 08:34:00,1
+ANOM-2026-000062,return_request,RMA-2026-000870,late_return_no_override,high,Return requested 19 days after delivery (policy is 7 days) without manager override.,2026-02-04 09:51:00,1
+ANOM-2026-000063,return_shipment,RTS-2026-000086,missing_shipment,medium,Return shipment RTS-2026-000086 lost in transit by carrier Shadowfax.,2026-01-29 17:26:00,1
+ANOM-2026-000064,refund,REF-2026-000837,refund_exceeds_paid,critical,Refund amount ₹117471.7 exceeds order line paid total ₹115244.7.,2026-01-21 19:13:00,1
+ANOM-2026-000065,return_request,RMA-2026-000877,late_return_no_override,high,Return requested 39 days after delivery (policy is 7 days) without manager override.,2026-02-22 08:21:00,1
+ANOM-2026-000066,return_line,RMAL-RMA-2026-000877-01,return_qty_exceeds_purchased,critical,Requested return quantity 2 exceeds order line quantity 1.,2026-02-22 13:21:00,1
+ANOM-2026-000067,inventory_disposition,DISP-2026-000837,restock_before_inspection,high,Disposition record dated 2026-01-21 06:56:00 precedes inspection date 2026-01-23 06:56:00.,2026-01-21 06:56:00,1
+ANOM-2026-000068,refund,REF-2026-000841,refund_exceeds_paid,critical,Refund amount ₹11621.38 exceeds order line paid total ₹9527.38.,2026-01-23 10:56:00,1
+ANOM-2026-000069,return_shipment,RTS-2026-000096,missing_shipment,medium,Return shipment RTS-2026-000096 lost in transit by carrier Delhivery.,2026-01-27 08:54:00,1
+ANOM-2026-000070,return_request,RMA-2026-000884,late_return_no_override,high,Return requested 34 days after delivery (policy is 7 days) without manager override.,2026-02-18 20:27:00,1
+ANOM-2026-000071,return_line,RMAL-RMA-2026-000886-01,return_qty_exceeds_purchased,critical,Requested return quantity 4 exceeds order line quantity 1.,2026-01-15 01:44:00,1
+ANOM-2026-000072,return_request,RMA-2026-000891,late_return_no_override,high,Return requested 32 days after delivery (policy is 7 days) without manager override.,2026-02-14 11:02:00,1
+ANOM-2026-000073,return_shipment,RTS-2026-000103,missing_shipment,medium,Return shipment RTS-2026-000103 lost in transit by carrier BlueDart.,2026-01-28 13:05:00,1
+ANOM-2026-000074,return_line,RMAL-RMA-2026-000895-01,return_qty_exceeds_purchased,critical,Requested return quantity 2 exceeds order line quantity 1.,2026-01-14 15:48:00,1
+ANOM-2026-000075,refund,REF-2026-000850,refund_exceeds_paid,critical,Refund amount ₹133227.0 exceeds order line paid total ₹130389.0.,2026-01-21 15:34:00,1
+ANOM-2026-000076,return_request,RMA-2026-000898,late_return_no_override,high,Return requested 43 days after delivery (policy is 7 days) without manager override.,2026-02-28 17:14:00,1
+ANOM-2026-000077,return_line,RMAL-RMA-2026-000904-01,return_qty_exceeds_purchased,critical,Requested return quantity 4 exceeds order line quantity 1.,2026-01-19 06:45:00,1
+ANOM-2026-000078,refund,REF-2026-000857,duplicate_refund,critical,Duplicate payout attempted for request RMA-2026-000904. Duplicate of REF-2026-000856.,2026-01-23 04:45:00,1
+ANOM-2026-000079,return_request,RMA-2026-000905,late_return_no_override,high,Return requested 45 days after delivery (policy is 7 days) without manager override.,2026-03-01 11:21:00,1
+ANOM-2026-000080,refund,REF-2026-000858,refund_exceeds_paid,critical,Refund amount ₹58480.0 exceeds order line paid total ₹56856.0.,2026-01-26 06:48:00,1
+ANOM-2026-000081,inventory_disposition,DISP-2026-000854,restock_before_inspection,high,Disposition record dated 2026-01-23 02:16:00 precedes inspection date 2026-01-25 02:16:00.,2026-01-23 02:16:00,1
+ANOM-2026-000082,return_request,RMA-2026-000912,late_return_no_override,high,Return requested 14 days after delivery (policy is 7 days) without manager override.,2026-01-28 16:17:00,1
+ANOM-2026-000083,return_line,RMAL-RMA-2026-000913-01,return_qty_exceeds_purchased,critical,Requested return quantity 2 exceeds order line quantity 1.,2026-01-23 20:12:00,1
+ANOM-2026-000084,return_request,RMA-2026-000919,late_return_no_override,high,Return requested 28 days after delivery (policy is 7 days) without manager override.,2026-02-11 14:50:00,1
+ANOM-2026-000085,inventory_disposition,DISP-2026-000862,restock_before_inspection,high,Disposition record dated 2026-01-25 06:54:00 precedes inspection date 2026-01-27 06:54:00.,2026-01-25 06:54:00,1
+ANOM-2026-000086,refund,REF-2026-000868,refund_exceeds_paid,critical,Refund amount ₹10276.06 exceeds order line paid total ₹8023.06.,2026-01-22 11:11:00,1
+ANOM-2026-000087,refund,REF-2026-000869,duplicate_refund,critical,Duplicate payout attempted for request RMA-2026-000921. Duplicate of REF-2026-000868.,2026-01-22 12:11:00,1
+ANOM-2026-000088,return_line,RMAL-RMA-2026-000922-01,return_qty_exceeds_purchased,critical,Requested return quantity 3 exceeds order line quantity 1.,2026-01-21 17:32:00,1
+ANOM-2026-000089,return_request,RMA-2026-000926,late_return_no_override,high,Return requested 16 days after delivery (policy is 7 days) without manager override.,2026-01-30 19:55:00,1
+ANOM-2026-000090,return_shipment,RTS-2026-000127,missing_shipment,medium,Return shipment RTS-2026-000127 lost in transit by carrier Delhivery.,2026-01-27 21:33:00,1
+ANOM-2026-000091,return_line,RMAL-RMA-2026-000931-01,return_qty_exceeds_purchased,critical,Requested return quantity 3 exceeds order line quantity 2.,2026-01-23 18:44:00,1
+ANOM-2026-000092,return_request,RMA-2026-000933,late_return_no_override,high,Return requested 44 days after delivery (policy is 7 days) without manager override.,2026-02-26 11:58:00,1
+ANOM-2026-000093,return_shipment,RTS-2026-000135,missing_shipment,medium,Return shipment RTS-2026-000135 lost in transit by carrier Shadowfax.,2026-01-27 08:47:00,1
+ANOM-2026-000094,return_request,RMA-2026-000940,late_return_no_override,high,Return requested 38 days after delivery (policy is 7 days) without manager override.,2026-02-20 12:17:00,1
+ANOM-2026-000095,return_line,RMAL-RMA-2026-000940-01,return_qty_exceeds_purchased,critical,Requested return quantity 5 exceeds order line quantity 3.,2026-02-20 16:17:00,1
+ANOM-2026-000096,refund,REF-2026-000882,refund_exceeds_paid,critical,Refund amount ₹4681.51 exceeds order line paid total ₹2416.51.,2026-01-22 22:56:00,1
+ANOM-2026-000097,return_request,RMA-2026-000947,late_return_no_override,high,Return requested 22 days after delivery (policy is 7 days) without manager override.,2026-02-05 10:53:00,1
+ANOM-2026-000098,return_line,RMAL-RMA-2026-000949-01,return_qty_exceeds_purchased,critical,Requested return quantity 3 exceeds order line quantity 1.,2026-01-23 04:44:00,1
+ANOM-2026-000099,return_shipment,RTS-2026-000142,missing_shipment,medium,Return shipment RTS-2026-000142 lost in transit by carrier Delhivery.,2026-02-02 10:44:00,1
+ANOM-2026-000100,refund,REF-2026-000888,refund_exceeds_paid,critical,Refund amount ₹4966.4 exceeds order line paid total ₹2690.4.,2026-01-22 08:49:00,1
+ANOM-2026-000101,return_request,RMA-2026-000954,late_return_no_override,high,Return requested 42 days after delivery (policy is 7 days) without manager override.,2026-02-26 10:30:00,1
+ANOM-2026-000102,refund,REF-2026-000892,duplicate_refund,critical,Duplicate payout attempted for request RMA-2026-000955. Duplicate of REF-2026-000891.,2026-01-27 12:48:00,1
+ANOM-2026-000103,refund,REF-2026-000893,refund_exceeds_paid,critical,Refund amount ₹12220.94 exceeds order line paid total ₹9025.94.,2026-01-22 10:34:00,1
+ANOM-2026-000104,return_line,RMAL-RMA-2026-000958-01,return_qty_exceeds_purchased,critical,Requested return quantity 4 exceeds order line quantity 2.,2026-01-18 22:54:00,1
+ANOM-2026-000105,inventory_disposition,DISP-2026-000889,restock_before_inspection,high,Disposition record dated 2026-01-20 00:10:00 precedes inspection date 2026-01-22 00:10:00.,2026-01-20 00:10:00,1
+ANOM-2026-000106,return_shipment,RTS-2026-000152,missing_shipment,medium,Return shipment RTS-2026-000152 lost in transit by carrier DTDC.,2026-01-25 20:16:00,1
+ANOM-2026-000107,return_request,RMA-2026-000961,late_return_no_override,high,Return requested 14 days after delivery (policy is 7 days) without manager override.,2026-01-27 18:30:00,1
+ANOM-2026-000108,refund,REF-2026-000901,refund_exceeds_paid,critical,Refund amount ₹64962.5 exceeds order line paid total ₹60409.5.,2026-01-22 11:52:00,1
+ANOM-2026-000109,return_line,RMAL-RMA-2026-000967-01,return_qty_exceeds_purchased,critical,Requested return quantity 3 exceeds order line quantity 2.,2026-01-18 01:40:00,1
+ANOM-2026-000110,return_request,RMA-2026-000968,late_return_no_override,high,Return requested 27 days after delivery (policy is 7 days) without manager override.,2026-02-12 12:58:00,1
+ANOM-2026-000111,return_shipment,RTS-2026-000161,missing_shipment,medium,Return shipment RTS-2026-000161 lost in transit by carrier Delhivery.,2026-01-25 21:13:00,1
+ANOM-2026-000112,return_request,RMA-2026-000975,late_return_no_override,high,Return requested 38 days after delivery (policy is 7 days) without manager override.,2026-02-21 09:32:00,1
+ANOM-2026-000113,return_line,RMAL-RMA-2026-000976-01,return_qty_exceeds_purchased,critical,Requested return quantity 2 exceeds order line quantity 1.,2026-01-21 02:48:00,1
+ANOM-2026-000114,refund,REF-2026-000911,refund_exceeds_paid,critical,Refund amount ₹3908.19 exceeds order line paid total ₹906.19.,2026-01-26 17:43:00,1
+ANOM-2026-000115,return_request,RMA-2026-000982,late_return_no_override,high,Return requested 15 days after delivery (policy is 7 days) without manager override.,2026-02-01 09:36:00,1
+ANOM-2026-000116,return_line,RMAL-RMA-2026-000985-01,return_qty_exceeds_purchased,critical,Requested return quantity 3 exceeds order line quantity 1.,2026-01-18 19:32:00,1
+ANOM-2026-000117,inventory_disposition,DISP-2026-000907,restock_before_inspection,high,Disposition record dated 2026-01-21 10:32:00 precedes inspection date 2026-01-23 10:32:00.,2026-01-21 10:32:00,1
+ANOM-2026-000118,refund,REF-2026-000915,refund_exceeds_paid,critical,Refund amount ₹11530.06 exceeds order line paid total ₹8023.06.,2026-01-25 22:16:00,1
+ANOM-2026-000119,return_request,RMA-2026-000989,late_return_no_override,high,Return requested 34 days after delivery (policy is 7 days) without manager override.,2026-02-17 14:07:00,1
+ANOM-2026-000120,return_shipment,RTS-2026-000175,missing_shipment,medium,Return shipment RTS-2026-000175 lost in transit by carrier Delhivery.,2026-02-04 06:03:00,1
+ANOM-2026-000121,return_line,RMAL-RMA-2026-000994-01,return_qty_exceeds_purchased,critical,Requested return quantity 2 exceeds order line quantity 1.,2026-01-18 18:52:00,1
+ANOM-2026-000122,return_request,RMA-2026-000996,late_return_no_override,high,Return requested 36 days after delivery (policy is 7 days) without manager override.,2026-02-19 08:31:00,1
+ANOM-2026-000123,inventory_disposition,DISP-2026-000914,restock_before_inspection,high,Disposition record dated 2026-01-16 12:47:00 precedes inspection date 2026-01-18 12:47:00.,2026-01-16 12:47:00,1
+ANOM-2026-000124,return_request,RMA-2026-001003,late_return_no_override,high,Return requested 13 days after delivery (policy is 7 days) without manager override.,2026-01-29 20:59:00,1
+ANOM-2026-000125,return_line,RMAL-RMA-2026-001003-01,return_qty_exceeds_purchased,critical,Requested return quantity 3 exceeds order line quantity 1.,2026-01-30 02:59:00,1
+ANOM-2026-000126,return_request,RMA-2026-001010,late_return_no_override,high,Return requested 23 days after delivery (policy is 7 days) without manager override.,2026-02-09 14:04:00,1
+ANOM-2026-000127,return_line,RMAL-RMA-2026-001012-01,return_qty_exceeds_purchased,critical,Requested return quantity 3 exceeds order line quantity 1.,2026-01-19 21:24:00,1
+ANOM-2026-000128,refund,REF-2026-000930,refund_exceeds_paid,critical,Refund amount ₹5669.88 exceeds order line paid total ₹3358.88.,2026-01-27 15:39:00,1
+ANOM-2026-000129,return_request,RMA-2026-001017,late_return_no_override,high,Return requested 12 days after delivery (policy is 7 days) without manager override.,2026-01-28 13:49:00,1
+ANOM-2026-000130,return_line,RMAL-RMA-2026-001021-01,return_qty_exceeds_purchased,critical,Requested return quantity 2 exceeds order line quantity 1.,2026-01-16 07:53:00,1
+ANOM-2026-000131,refund,REF-2026-000936,duplicate_refund,critical,Duplicate payout attempted for request RMA-2026-001023. Duplicate of REF-2026-000935.,2026-01-19 09:19:00,1
+ANOM-2026-000132,return_request,RMA-2026-001024,late_return_no_override,high,Return requested 36 days after delivery (policy is 7 days) without manager override.,2026-02-21 14:19:00,1
+ANOM-2026-000133,return_shipment,RTS-2026-000195,missing_shipment,medium,Return shipment RTS-2026-000195 lost in transit by carrier Shadowfax.,2026-01-31 23:56:00,1
+ANOM-2026-000134,return_line,RMAL-RMA-2026-001030-01,return_qty_exceeds_purchased,critical,Requested return quantity 4 exceeds order line quantity 1.,2026-01-19 22:06:00,1
+ANOM-2026-000135,refund,REF-2026-000942,refund_exceeds_paid,critical,Refund amount ₹6234.04 exceeds order line paid total ₹2231.04.,2026-01-22 16:26:00,1
+ANOM-2026-000136,return_line,RMAL-RMA-2026-001039-01,return_qty_exceeds_purchased,critical,Requested return quantity 3 exceeds order line quantity 1.,2026-01-18 04:15:00,1
+ANOM-2026-000137,refund,REF-2026-000950,duplicate_refund,critical,Duplicate payout attempted for request RMA-2026-001040. Duplicate of REF-2026-000949.,2026-01-26 19:01:00,1
+ANOM-2026-000138,refund,REF-2026-000951,refund_exceeds_paid,critical,Refund amount ₹4625.8 exceeds order line paid total ₹2788.8.,2026-01-23 10:13:00,1
+ANOM-2026-000139,refund,REF-2026-000956,refund_exceeds_paid,critical,Refund amount ₹6200.88 exceeds order line paid total ₹4482.88.,2026-01-20 03:02:00,1
+ANOM-2026-000140,return_line,RMAL-RMA-2026-001048-01,return_qty_exceeds_purchased,critical,Requested return quantity 3 exceeds order line quantity 1.,2026-01-15 21:31:00,1
+ANOM-2026-000141,return_shipment,RTS-2026-000215,missing_shipment,medium,Return shipment RTS-2026-000215 lost in transit by carrier BlueDart.,2026-01-25 23:31:00,1
+ANOM-2026-000142,inventory_disposition,DISP-2026-000950,restock_before_inspection,high,Disposition record dated 2026-01-22 17:05:00 precedes inspection date 2026-01-24 17:05:00.,2026-01-22 17:05:00,1
+ANOM-2026-000143,return_line,RMAL-RMA-2026-001057-01,return_qty_exceeds_purchased,critical,Requested return quantity 3 exceeds order line quantity 1.,2026-01-18 05:31:00,1
+ANOM-2026-000144,refund,REF-2026-000964,duplicate_refund,critical,Duplicate payout attempted for request RMA-2026-001057. Duplicate of REF-2026-000963.,2026-01-22 22:31:00,1
+ANOM-2026-000145,return_shipment,RTS-2026-000223,missing_shipment,medium,Return shipment RTS-2026-000223 lost in transit by carrier Shadowfax.,2026-02-01 23:58:00,1
+ANOM-2026-000146,refund,REF-2026-000967,refund_exceeds_paid,critical,Refund amount ₹9652.21 exceeds order line paid total ₹5374.21.,2026-01-19 11:00:00,1
+ANOM-2026-000147,inventory_disposition,DISP-2026-000959,restock_before_inspection,high,Disposition record dated 2026-01-19 06:26:00 precedes inspection date 2026-01-21 06:26:00.,2026-01-19 06:26:00,1
+ANOM-2026-000148,return_line,RMAL-RMA-2026-001066-01,return_qty_exceeds_purchased,critical,Requested return quantity 2 exceeds order line quantity 1.,2026-01-19 05:57:00,1
+ANOM-2026-000149,return_shipment,RTS-2026-000233,missing_shipment,medium,Return shipment RTS-2026-000233 lost in transit by carrier DTDC.,2026-02-01 09:38:00,1
+ANOM-2026-000150,refund,REF-2026-000975,refund_exceeds_paid,critical,Refund amount ₹8489.0 exceeds order line paid total ₹4011.0.,2026-01-19 12:17:00,1
+ANOM-2026-000151,refund,REF-2026-000978,duplicate_refund,critical,Duplicate payout attempted for request RMA-2026-001074. Duplicate of REF-2026-000977.,2026-01-28 13:11:00,1
+ANOM-2026-000152,return_line,RMAL-RMA-2026-001075-01,return_qty_exceeds_purchased,critical,Requested return quantity 3 exceeds order line quantity 2.,2026-01-22 16:07:00,1
+ANOM-2026-000153,inventory_disposition,DISP-2026-000968,restock_before_inspection,high,Disposition record dated 2026-01-24 15:42:00 precedes inspection date 2026-01-26 15:42:00.,2026-01-24 15:42:00,1
+ANOM-2026-000154,refund,REF-2026-000979,refund_exceeds_paid,critical,Refund amount ₹9605.06 exceeds order line paid total ₹7551.06.,2026-01-26 19:42:00,1
+ANOM-2026-000155,return_line,RMAL-RMA-2026-001084-01,return_qty_exceeds_purchased,critical,Requested return quantity 6 exceeds order line quantity 3.,2026-01-20 09:25:00,1
+ANOM-2026-000156,inventory_disposition,DISP-2026-000978,restock_before_inspection,high,Disposition record dated 2026-01-20 13:38:00 precedes inspection date 2026-01-22 13:38:00.,2026-01-20 13:38:00,1
+ANOM-2026-000157,refund,REF-2026-000991,duplicate_refund,critical,Duplicate payout attempted for request RMA-2026-001091. Duplicate of REF-2026-000990.,2026-01-24 16:33:00,1
+ANOM-2026-000158,return_shipment,RTS-2026-000249,missing_shipment,medium,Return shipment RTS-2026-000249 lost in transit by carrier Shadowfax.,2026-01-30 08:48:00,1
+ANOM-2026-000159,return_line,RMAL-RMA-2026-001093-01,return_qty_exceeds_purchased,critical,Requested return quantity 4 exceeds order line quantity 1.,2026-01-20 23:22:00,1
+ANOM-2026-000160,return_line,RMAL-RMA-2026-001102-01,return_qty_exceeds_purchased,critical,Requested return quantity 4 exceeds order line quantity 1.,2026-01-23 05:38:00,1
+ANOM-2026-000161,inventory_disposition,DISP-2026-000988,restock_before_inspection,high,Disposition record dated 2026-01-25 20:38:00 precedes inspection date 2026-01-27 20:38:00.,2026-01-25 20:38:00,1
+ANOM-2026-000162,return_line,RMAL-RMA-2026-001111-01,return_qty_exceeds_purchased,critical,Requested return quantity 4 exceeds order line quantity 1.,2026-01-24 02:02:00,1
+ANOM-2026-000163,inventory_disposition,DISP-2026-000997,restock_before_inspection,high,Disposition record dated 2026-01-27 17:06:00 precedes inspection date 2026-01-29 17:06:00.,2026-01-27 17:06:00,1
+ANOM-2026-000164,return_line,RMAL-RMA-2026-001120-01,return_qty_exceeds_purchased,critical,Requested return quantity 4 exceeds order line quantity 1.,2026-01-17 20:05:00,1
+ANOM-2026-000165,refund,REF-2026-001017,duplicate_refund,critical,Duplicate payout attempted for request RMA-2026-001125. Duplicate of REF-2026-001016.,2026-01-24 13:08:00,1
+ANOM-2026-000166,inventory_disposition,DISP-2026-001006,restock_before_inspection,high,Disposition record dated 2026-01-24 04:03:00 precedes inspection date 2026-01-26 04:03:00.,2026-01-24 04:03:00,1
+ANOM-2026-000167,return_line,RMAL-RMA-2026-001129-01,return_qty_exceeds_purchased,critical,Requested return quantity 4 exceeds order line quantity 1.,2026-01-18 16:34:00,1
+ANOM-2026-000168,return_line,RMAL-RMA-2026-001138-01,return_qty_exceeds_purchased,critical,Requested return quantity 5 exceeds order line quantity 2.,2026-01-19 17:04:00,1
+ANOM-2026-000169,refund,REF-2026-001031,duplicate_refund,critical,Duplicate payout attempted for request RMA-2026-001142. Duplicate of REF-2026-001030.,2026-01-23 01:57:00,1
+ANOM-2026-000170,return_line,RMAL-RMA-2026-001147-01,return_qty_exceeds_purchased,critical,Requested return quantity 3 exceeds order line quantity 1.,2026-01-22 15:09:00,1
+ANOM-2026-000171,inventory_disposition,DISP-2026-001028,restock_before_inspection,high,Disposition record dated 2026-01-23 00:45:00 precedes inspection date 2026-01-25 00:45:00.,2026-01-23 00:45:00,1
+ANOM-2026-000172,return_line,RMAL-RMA-2026-001156-01,return_qty_exceeds_purchased,critical,Requested return quantity 3 exceeds order line quantity 1.,2026-01-23 15:02:00,1
+ANOM-2026-000173,refund,REF-2026-001046,duplicate_refund,critical,Duplicate payout attempted for request RMA-2026-001159. Duplicate of REF-2026-001045.,2026-01-27 13:42:00,1
+ANOM-2026-000174,return_line,RMAL-RMA-2026-001165-01,return_qty_exceeds_purchased,critical,Requested return quantity 5 exceeds order line quantity 2.,2026-01-17 21:59:00,1
+ANOM-2026-000175,inventory_disposition,DISP-2026-001039,restock_before_inspection,high,Disposition record dated 2026-01-22 18:42:00 precedes inspection date 2026-01-24 18:42:00.,2026-01-22 18:42:00,1
+ANOM-2026-000176,return_line,RMAL-RMA-2026-001174-01,return_qty_exceeds_purchased,critical,Requested return quantity 2 exceeds order line quantity 1.,2026-01-20 16:44:00,1
+ANOM-2026-000177,refund,REF-2026-001062,duplicate_refund,critical,Duplicate payout attempted for request RMA-2026-001176. Duplicate of REF-2026-001061.,2026-01-23 21:02:00,1
+ANOM-2026-000178,inventory_disposition,DISP-2026-001050,restock_before_inspection,high,Disposition record dated 2026-01-22 05:57:00 precedes inspection date 2026-01-24 05:57:00.,2026-01-22 05:57:00,1
+ANOM-2026-000179,return_line,RMAL-RMA-2026-001183-01,return_qty_exceeds_purchased,critical,Requested return quantity 5 exceeds order line quantity 2.,2026-01-19 00:05:00,1
+ANOM-2026-000180,return_line,RMAL-RMA-2026-001192-01,return_qty_exceeds_purchased,critical,Requested return quantity 2 exceeds order line quantity 1.,2026-01-20 16:21:00,1
+ANOM-2026-000181,inventory_disposition,DISP-2026-001059,restock_before_inspection,high,Disposition record dated 2026-01-26 04:34:00 precedes inspection date 2026-01-28 04:34:00.,2026-01-26 04:34:00,1
+ANOM-2026-000182,refund,REF-2026-001076,duplicate_refund,critical,Duplicate payout attempted for request RMA-2026-001193. Duplicate of REF-2026-001075.,2026-01-28 09:34:00,1
+ANOM-2026-000183,refund,REF-2026-001091,duplicate_refund,critical,Duplicate payout attempted for request RMA-2026-001210. Duplicate of REF-2026-001090.,2026-01-24 12:11:00,1
+ANOM-2026-000184,refund,REF-2026-001105,duplicate_refund,critical,Duplicate payout attempted for request RMA-2026-001227. Duplicate of REF-2026-001104.,2026-01-29 13:22:00,1
+ANOM-2026-000185,refund,REF-2026-001118,duplicate_refund,critical,Duplicate payout attempted for request RMA-2026-001244. Duplicate of REF-2026-001117.,2026-01-25 10:27:00,1
+ANOM-2026-000186,refund,REF-2026-001145,duplicate_refund,critical,Duplicate payout attempted for request RMA-2026-001278. Duplicate of REF-2026-001144.,2026-01-25 21:01:00,1
+ANOM-2026-000187,refund,REF-2026-001161,duplicate_refund,critical,Duplicate payout attempted for request RMA-2026-001295. Duplicate of REF-2026-001160.,2026-01-27 11:11:00,1
+ANOM-2026-000188,refund,REF-2026-001176,duplicate_refund,critical,Duplicate payout attempted for request RMA-2026-001312. Duplicate of REF-2026-001175.,2026-01-22 20:07:00,1
+ANOM-2026-000189,refund,REF-2026-001190,duplicate_refund,critical,Duplicate payout attempted for request RMA-2026-001329. Duplicate of REF-2026-001189.,2026-01-29 16:46:00,1
+ANOM-2026-000190,refund,REF-2026-001214,duplicate_refund,critical,Duplicate payout attempted for request RMA-2026-001363. Duplicate of REF-2026-001213.,2026-01-25 21:02:00,1
+ANOM-2026-000191,refund,REF-2026-001229,duplicate_refund,critical,Duplicate payout attempted for request RMA-2026-001380. Duplicate of REF-2026-001228.,2026-01-25 20:40:00,1
+ANOM-2026-000192,refund,REF-2026-001241,duplicate_refund,critical,Duplicate payout attempted for request RMA-2026-001397. Duplicate of REF-2026-001240.,2026-01-30 09:12:00,1
+ANOM-2026-000193,refund,REF-2026-001271,duplicate_refund,critical,Duplicate payout attempted for request RMA-2026-001431. Duplicate of REF-2026-001270.,2026-01-23 17:57:00,1
+ANOM-2026-000194,refund,REF-2026-001287,duplicate_refund,critical,Duplicate payout attempted for request RMA-2026-001448. Duplicate of REF-2026-001286.,2026-01-25 16:20:00,1
+ANOM-2026-000195,refund,REF-2026-001301,duplicate_refund,critical,Duplicate payout attempted for request RMA-2026-001465. Duplicate of REF-2026-001300.,2026-01-27 16:10:00,1
+ANOM-2026-000196,refund,REF-2026-001314,duplicate_refund,critical,Duplicate payout attempted for request RMA-2026-001482. Duplicate of REF-2026-001313.,2026-02-01 10:32:00,1
+ANOM-2026-000197,refund,REF-2026-001327,duplicate_refund,critical,Duplicate payout attempted for request RMA-2026-001499. Duplicate of REF-2026-001326.,2026-01-27 17:02:00,1
+ANOM-2026-000198,refund,REF-2026-001352,duplicate_refund,critical,Duplicate payout attempted for request RMA-2026-001533. Duplicate of REF-2026-001351.,2026-01-30 12:11:00,1
+ANOM-2026-000199,refund,REF-2026-001367,duplicate_refund,critical,Duplicate payout attempted for request RMA-2026-001550. Duplicate of REF-2026-001366.,2026-01-28 16:31:00,1
+ANOM-2026-000200,refund,REF-2026-001383,duplicate_refund,critical,Duplicate payout attempted for request RMA-2026-001567. Duplicate of REF-2026-001382.,2026-01-26 10:06:00,1

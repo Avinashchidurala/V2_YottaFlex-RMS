@@ -1,0 +1,4 @@
+customer_id,name,email,phone,address,city,state,tier,wallet_balance_inr,created_at,is_active
+CUST-IND-001,John Smith,john.smith@example.in,+91-9876543210,"42, MG Road, Indiranagar",Bangalore,Karnataka,vip,25000.0,2026-01-01 10:00:00,1
+CUST-IND-002,Sarah Johnson,sarah.johnson@example.in,+91-9823456789,"15, Linking Road, Bandra West",Mumbai,Maharashtra,premium,18500.0,2026-01-01 10:00:00,1
+CUST-IND-003,Michael Brown,michael.brown@example.in,+91-9811223344,"88, Connaught Place",Delhi,Delhi,standard,12000.0,2026-01-01 10:00:00,1

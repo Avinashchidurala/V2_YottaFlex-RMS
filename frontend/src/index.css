@@ -1,0 +1,48 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply font-sans text-gray-900 bg-gray-50;
+  }
+}
+
+@layer components {
+  .sidebar-link {
+    @apply flex items-center gap-3 px-4 py-3 rounded-lg text-slate-300 hover:bg-slate-700 hover:text-white transition-colors duration-150 text-sm font-medium;
+  }
+  .sidebar-link.active {
+    @apply bg-blue-600 text-white;
+  }
+  .stat-card {
+    @apply bg-white rounded-xl shadow-sm border border-gray-200 p-5;
+  }
+  .btn-primary {
+    @apply bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors;
+  }
+  .btn-secondary {
+    @apply bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-2 rounded-lg text-sm font-medium transition-colors;
+  }
+  .btn-success {
+    @apply bg-green-600 hover:bg-green-700 text-white px-3 py-1.5 rounded text-xs font-medium transition-colors;
+  }
+  .btn-danger {
+    @apply bg-red-600 hover:bg-red-700 text-white px-3 py-1.5 rounded text-xs font-medium transition-colors;
+  }
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  @apply bg-gray-100;
+}
+::-webkit-scrollbar-thumb {
+  @apply bg-gray-300 rounded;
+}
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-gray-400;
+}

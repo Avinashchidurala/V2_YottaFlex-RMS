@@ -1,0 +1,27 @@
+version: "3.9"
+
+services:
+  rms-api:
+    image: python:3.11-slim
+    container_name: rms-api
+    working_dir: /app
+    volumes:
+      - ./backend:/app/backend
+      - ./data:/app/data
+      - ./requirements.txt:/app/requirements.txt
+    environment:
+      - PYTHONPATH=/app
+      - PYTHONDONTWRITEBYTECODE=1
+      - PYTHONUNBUFFERED=1
+    ports:
+      - "8000:8000"
+    command: >
+      sh -c "pip install --no-cache-dir -r /app/requirements.txt &&
+             uvicorn backend.app.main:app --host 0.0.0.0 --port 8000 --reload"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/v1/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 20s
+    restart: unless-stopped

@@ -1,0 +1,49 @@
+# Dependencies
+node_modules/
+*/node_modules/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Test artifacts
+data_test_unit/
+data_test_run1/
+data_test_run2/
+
+# IDE / Editor
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs & temp
+*.log
+scratch/
+.system_generated/

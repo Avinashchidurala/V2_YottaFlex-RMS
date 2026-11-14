@@ -1,0 +1,201 @@
+{
+  "customers.csv": {
+    "rows": 3,
+    "columns": [
+      "customer_id",
+      "name",
+      "email",
+      "phone",
+      "address",
+      "city",
+      "state",
+      "tier",
+      "wallet_balance_inr",
+      "created_at",
+      "is_active"
+    ],
+    "sha256": "bffee004ba15ca35dc76e9fdbb004e5fa216f4ea5862b642dda7a2855c03e76e"
+  },
+  "inventory.csv": {
+    "rows": 14,
+    "columns": [
+      "product_id",
+      "product_name",
+      "category",
+      "unit_price_inr",
+      "cost_price_inr",
+      "stock_quantity",
+      "return_window_days",
+      "is_returnable",
+      "gst_pct",
+      "total_units_sold",
+      "total_units_returned"
+    ],
+    "sha256": "b7d1831c96e02a775e96fa0f66e25a53a305273079d9ee5018505a3f20ed26ac"
+  },
+  "orders.csv": {
+    "rows": 30000,
+    "columns": [
+      "order_id",
+      "customer_id",
+      "order_date",
+      "total_amount_inr",
+      "discount_amount_inr",
+      "tax_amount_inr",
+      "net_amount_inr",
+      "status",
+      "payment_method",
+      "delivery_date"
+    ],
+    "sha256": "67da7a1ba4d7cfb3115f633422bccdbee15445de9243ba38f674852d6b11696e"
+  },
+  "order_lines.csv": {
+    "rows": 54163,
+    "columns": [
+      "line_id",
+      "order_id",
+      "product_id",
+      "product_name",
+      "category",
+      "quantity",
+      "unit_price_inr",
+      "discount_pct",
+      "gst_pct",
+      "line_total_inr",
+      "is_returnable",
+      "return_window_days"
+    ],
+    "sha256": "9c26aa28b88fdc455dc1e0e7e52b181e9cdfa7d57f3787d8856e6c14adf04c08"
+  },
+  "return_requests.csv": {
+    "rows": 5000,
+    "columns": [
+      "request_id",
+      "customer_id",
+      "order_id",
+      "request_date",
+      "reason",
+      "status",
+      "notes",
+      "override_flag",
+      "override_reason",
+      "days_since_delivery",
+      "return_channel"
+    ],
+    "sha256": "ea9f8c2755c7ff442d997289a3460eba54bba0cdd8e2e5a4aa64c322dd7b9ffb"
+  },
+  "return_lines.csv": {
+    "rows": 8000,
+    "columns": [
+      "line_id",
+      "request_id",
+      "order_line_id",
+      "requested_qty",
+      "approved_qty",
+      "rejection_reason",
+      "status"
+    ],
+    "sha256": "aaebb7700112d2ac44ea398eb9f0458b68958fd59b22ae5a258e04806987fff6"
+  },
+  "return_authorizations.csv": {
+    "rows": 3352,
+    "columns": [
+      "auth_id",
+      "request_id",
+      "authorized_by",
+      "authorized_at",
+      "expiry_date",
+      "auth_status"
+    ],
+    "sha256": "5cf366be81bc3fe13c1f5f5a9eea50555fbcb748f8994b04ea0d3eca38f27c40"
+  },
+  "return_shipments.csv": {
+    "rows": 3352,
+    "columns": [
+      "shipment_id",
+      "auth_id",
+      "carrier",
+      "tracking_number",
+      "shipped_at",
+      "received_at",
+      "condition_on_arrival",
+      "status"
+    ],
+    "sha256": "6ef712ec37e173ade0c81d98e3de9c5b9e375e3e4b1f9686419ff29737d95918"
+  },
+  "inspections.csv": {
+    "rows": 3332,
+    "columns": [
+      "inspection_id",
+      "shipment_id",
+      "inspector_id",
+      "inspected_at",
+      "overall_condition",
+      "notes",
+      "recommended_action"
+    ],
+    "sha256": "89a60df0249cdd985f55a2eb2bc1d7706794657dea25165e9062635ad449ebea"
+  },
+  "refunds.csv": {
+    "rows": 4117,
+    "columns": [
+      "refund_id",
+      "request_id",
+      "inspection_id",
+      "gross_refund_inr",
+      "restocking_fee_inr",
+      "shipping_fee_inr",
+      "net_refund_inr",
+      "status",
+      "processed_at",
+      "payment_method",
+      "is_duplicate",
+      "duplicate_of_refund_id"
+    ],
+    "sha256": "bc796baa0b94101d61214b6aeb3d6e5ced328430ac677a5f1dfeaf3c699c9103"
+  },
+  "inventory_dispositions.csv": {
+    "rows": 4082,
+    "columns": [
+      "disposition_id",
+      "inspection_id",
+      "product_id",
+      "product_name",
+      "quantity",
+      "disposition_action",
+      "location",
+      "disposed_at",
+      "estimated_recovery_inr",
+      "notes"
+    ],
+    "sha256": "52978928a9e0bf2d68edfb38c684a7b4db994aa2fd41d2984a2522f5dc8ccd25"
+  },
+  "state_transition_log.csv": {
+    "rows": 750,
+    "columns": [
+      "log_id",
+      "entity_type",
+      "entity_id",
+      "from_status",
+      "to_status",
+      "changed_by",
+      "changed_at",
+      "reason"
+    ],
+    "sha256": "b5216a1298b7313bd144e90bbe401bc747fc60d904fa4a52c4c0276a5b3cadcd"
+  },
+  "ground_truth.csv": {
+    "rows": 200,
+    "columns": [
+      "anomaly_id",
+      "entity_type",
+      "entity_id",
+      "anomaly_type",
+      "severity",
+      "description",
+      "detected_at",
+      "is_confirmed"
+    ],
+    "sha256": "0989343d921e9fcb901e9b123ffba66c9ccbe9c9268ac428741a51ab5c9f2c72"
+  }
+}

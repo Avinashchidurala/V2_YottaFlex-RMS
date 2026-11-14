@@ -1,0 +1,85 @@
+{
+  "timestamp": "2026-11-14T12:33:38.933219",
+  "status": "PASSED",
+  "errors": [],
+  "warnings": [],
+  "checks": {
+    "pk_uniqueness": {
+      "customers": {
+        "total_rows": 3,
+        "unique_keys": 3,
+        "is_valid": true
+      },
+      "inventory": {
+        "total_rows": 14,
+        "unique_keys": 14,
+        "is_valid": true
+      },
+      "orders": {
+        "total_rows": 30030,
+        "unique_keys": 30030,
+        "is_valid": true
+      },
+      "order_lines": {
+        "total_rows": 54193,
+        "unique_keys": 54193,
+        "is_valid": true
+      },
+      "return_requests": {
+        "total_rows": 5000,
+        "unique_keys": 5000,
+        "is_valid": true
+      },
+      "return_lines": {
+        "total_rows": 8000,
+        "unique_keys": 8000,
+        "is_valid": true
+      },
+      "return_authorizations": {
+        "total_rows": 3352,
+        "unique_keys": 3352,
+        "is_valid": true
+      },
+      "return_shipments": {
+        "total_rows": 3352,
+        "unique_keys": 3352,
+        "is_valid": true
+      },
+      "inspections": {
+        "total_rows": 3332,
+        "unique_keys": 3332,
+        "is_valid": true
+      },
+      "refunds": {
+        "total_rows": 4117,
+        "unique_keys": 4117,
+        "is_valid": true
+      },
+      "inventory_dispositions": {
+        "total_rows": 4082,
+        "unique_keys": 4082,
+        "is_valid": true
+      }
+    },
+    "fk_integrity": {
+      "status": "PASSED",
+      "violations": []
+    },
+    "refund_math_reconciliation": {
+      "total_refunds_checked": 4052,
+      "reconciled_count": 4052,
+      "is_valid": true
+    },
+    "ground_truth_coverage": {
+      "total_anomalies_labelled": 200,
+      "anomaly_types_detected": {
+        "return_qty_exceeds_purchased": 50,
+        "late_return_no_override": 40,
+        "duplicate_refund": 35,
+        "refund_exceeds_paid": 30,
+        "restock_before_inspection": 25,
+        "missing_shipment": 20
+      }
+    }
+  }
+}
