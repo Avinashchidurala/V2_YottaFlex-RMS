@@ -14,10 +14,10 @@ import sqlite3
 from datetime import datetime, timedelta
 from typing import Optional, List, Dict, Any
 
-from fastapi import FastAPI, HTTPException, Query, Request, Response, File, UploadFile
+from fastapi import FastAPI, HTTPException, Query, Request, Response, File, UploadFile, Body
 from fastapi.responses import HTMLResponse, JSONResponse, StreamingResponse
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 import uvicorn
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -25,10 +25,48 @@ DATA_DIR = os.path.join(BASE_DIR, "data")
 DB_PATH = os.path.join(DATA_DIR, "rms.db")
 REACT_DIST = os.path.join(BASE_DIR, "frontend", "dist")
 
+tags_metadata = [
+    {
+        "name": "Customer Portal",
+        "description": "APIs for customers to view orders, check 7-day eligibility, initiate returns, track RMA carrier shipments, and receive zero-touch in-transit wallet refunds."
+    },
+    {
+        "name": "Operations Management",
+        "description": "APIs for Operations Managers to review pending returns, approve/reject requests, issue return authorizations (AUTH-), and execute policy overrides."
+    },
+    {
+        "name": "Warehouse & Disposition",
+        "description": "APIs for Store/Warehouse Operators to mark inbound RTS shipments as received, perform physical quality grading (Grade A–D), and route disposition."
+    },
+    {
+        "name": "Analytics & KPIs",
+        "description": "APIs for E-Commerce Analysts to monitor financial reconciliation (Gross vs. Net Revenue ₹), monthly trends, return reasons, and ground-truth fraud anomalies."
+    },
+    {
+        "name": "Admin Master CRUD",
+        "description": "APIs for system administrators to introspect 13 database tables, execute manual CRUD, download pre-filled CSV templates, and bulk upload data."
+    },
+    {
+        "name": "System Health",
+        "description": "Health check and system diagnostics."
+    }
+]
+
 app = FastAPI(
     title="Returns Management System (RMS) Enterprise API",
-    description="End-to-end Return Lifecycle Management: Eligibility, Authorization, Inspection, Restocking, Refund, and Disposition (Currency: INR ₹)",
-    version="2.1.0"
+    description="""
+### YottaFlex Return Management System (RMS) — Enterprise API
+End-to-end Return Lifecycle Management: Eligibility, Authorization, Physical Quality Grading, Restocking, Refund, and Disposition (Currency: strictly INR ₹).
+
+**Key Features for Testing in Swagger:**
+* **Real Ready-to-Test Payloads**: Every endpoint includes pre-filled, realistic request payloads matching actual records in `data/rms.db`.
+* **Zero-Touch In-Transit Cancellation**: Auto-refunds directly to the customer wallet without requiring manager approval.
+* **Delivered 7-Day Window**: Requires Operations Manager approval; orders older than 7 days require executive override.
+* **Disposition Controls Inventory**: Only Grade A/B restock actions physically increment sellable stock.
+* **Duplicate Payout Protection**: Intercepts and blocks duplicate refund claims.
+    """,
+    version="2.2.0",
+    openapi_tags=tags_metadata
 )
 
 app.add_middleware(
@@ -61,51 +99,331 @@ def normalize_customer_id(cid: str) -> str:
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# Pydantic Request Schemas
+# Pydantic Request Schemas with Ready-to-Test Real Payload Examples
 # ─────────────────────────────────────────────────────────────────────────────
 
 class InTransitReturnRequest(BaseModel):
-    order_id: str
-    customer_id: str
-    reason: Optional[str] = "changed_mind"
+    order_id: str = Field(
+        ..., 
+        description="Order ID currently in 'shipping' status",
+        examples=["ORD-DELIV-CUST001-01"]
+    )
+    customer_id: str = Field(
+        ..., 
+        description="Customer ID: John Smith (CUST-001), Sarah Johnson (CUST-002), or Michael Brown (CUST-003)",
+        examples=["CUST-001"]
+    )
+    reason: Optional[str] = Field(
+        "changed_mind", 
+        description="Cancellation reason: 'changed_mind', 'duplicate_order', or 'expected_earlier_delivery'",
+        examples=["changed_mind"]
+    )
+
+    model_config = {
+        "json_schema_extra": {
+            "examples": [
+                {
+                    "order_id": "ORD-DELIV-CUST001-01",
+                    "customer_id": "CUST-001",
+                    "reason": "changed_mind"
+                }
+            ]
+        }
+    }
 
 
 class DeliveredReturnRequest(BaseModel):
-    order_id: str
-    order_line_id: str
-    customer_id: str
-    quantity: int = 1
-    reason: str = "defective"
-    notes: Optional[str] = None
+    order_id: str = Field(
+        ..., 
+        description="Order ID delivered within the 7-day policy window",
+        examples=["ORD-DELIV-CUST001-02"]
+    )
+    order_line_id: str = Field(
+        ..., 
+        description="Specific order line item ID to return",
+        examples=["LINE-DELIV-CUST001-02-01"]
+    )
+    customer_id: str = Field(
+        ..., 
+        description="Customer ID: CUST-001, CUST-002, or CUST-003",
+        examples=["CUST-001"]
+    )
+    quantity: int = Field(
+        1, 
+        ge=1, 
+        description="Quantity to return (cannot exceed purchased order line quantity)",
+        examples=[1]
+    )
+    reason: str = Field(
+        "defective", 
+        description="Return reason: 'defective', 'damaged_in_transit', 'wrong_item', 'sizing_issue', or 'changed_mind'",
+        examples=["defective"]
+    )
+    notes: Optional[str] = Field(
+        "Device does not power on out of the box. Display remains unresponsive.", 
+        description="Customer return notes and defect description",
+        examples=["Device does not power on out of the box. Display remains unresponsive."]
+    )
+
+    model_config = {
+        "json_schema_extra": {
+            "examples": [
+                {
+                    "order_id": "ORD-DELIV-CUST001-02",
+                    "order_line_id": "LINE-DELIV-CUST001-02-01",
+                    "customer_id": "CUST-001",
+                    "quantity": 1,
+                    "reason": "defective",
+                    "notes": "Device does not power on out of the box. Display remains unresponsive."
+                },
+                {
+                    "order_id": "ORD-DELIV-CUST002-01",
+                    "order_line_id": "LINE-DELIV-CUST002-01-01",
+                    "customer_id": "CUST-002",
+                    "quantity": 1,
+                    "reason": "sizing_issue",
+                    "notes": "Size L ordered but requires XL for proper fit."
+                }
+            ]
+        }
+    }
 
 
 class OpsManagerDecision(BaseModel):
-    request_id: str
-    action: str  # "approve" or "reject"
-    rejection_reason: Optional[str] = None
-    override_policy: Optional[bool] = False
-    override_notes: Optional[str] = None
+    request_id: str = Field(
+        ..., 
+        description="Return Request identifier (RMA-2026-NNNNNN)",
+        examples=["RMA-2026-000001"]
+    )
+    action: str = Field(
+        "approve", 
+        description="Decision action: 'approve' or 'reject'",
+        examples=["approve"]
+    )
+    rejection_reason: Optional[str] = Field(
+        None, 
+        description="Mandatory justification when rejecting a return request",
+        examples=["Policy exclusion: Product seal broken and missing accessories."]
+    )
+    override_policy: Optional[bool] = Field(
+        False, 
+        description="Executive flag to authorize returns past the 7-day policy window for VIP customers",
+        examples=[False]
+    )
+    override_notes: Optional[str] = Field(
+        None, 
+        description="Documented executive justification for audit trail (required if override_policy=True)",
+        examples=["Approved under VIP courtesy policy by Operations Director."]
+    )
+
+    model_config = {
+        "json_schema_extra": {
+            "examples": [
+                {
+                    "request_id": "RMA-2026-000001",
+                    "action": "approve",
+                    "rejection_reason": None,
+                    "override_policy": False,
+                    "override_notes": "Standard 7-day policy approval by Operations Manager"
+                },
+                {
+                    "request_id": "RMA-2026-000002",
+                    "action": "approve",
+                    "rejection_reason": None,
+                    "override_policy": True,
+                    "override_notes": "Executive override granted for VIP customer John Smith (CUST-001)"
+                },
+                {
+                    "request_id": "RMA-2026-000003",
+                    "action": "reject",
+                    "rejection_reason": "Return window exceeded (> 14 days) and customer is non-VIP tier.",
+                    "override_policy": False,
+                    "override_notes": None
+                }
+            ]
+        }
+    }
 
 
 class WarehouseReceiveSubmit(BaseModel):
-    shipment_id: str
+    shipment_id: str = Field(
+        ..., 
+        description="Inbound Return-to-Sender shipment identifier (RTS-2026-NNNNNN)",
+        examples=["RTS-2026-000001"]
+    )
+
+    model_config = {
+        "json_schema_extra": {
+            "examples": [
+                {
+                    "shipment_id": "RTS-2026-000001"
+                }
+            ]
+        }
+    }
 
 
 class WarehouseInspectionSubmit(BaseModel):
-    shipment_id: str
-    inspector_id: str = "INSP-WH-01"
-    quality_grade: str = "Grade A"  # Grade A, Grade B, Grade C, Grade D
-    overall_condition: str = "excellent"  # excellent, good, fair, poor, unusable
-    recommended_action: str = "restock"  # restock, refurbish, quarantine, scrap
-    notes: Optional[str] = None
-    checklist_passed: Optional[bool] = True
+    shipment_id: str = Field(
+        ..., 
+        description="Inbound Return Shipment ID (RTS-2026-NNNNNN)",
+        examples=["RTS-2026-000001"]
+    )
+    inspector_id: str = Field(
+        "INSP-WH-01", 
+        description="Inspector badge identifier",
+        examples=["INSP-WH-01"]
+    )
+    quality_grade: str = Field(
+        "Grade A", 
+        description="Grade A (Like New), Grade B (Good), Grade C (Damaged), Grade D (Unsellable)",
+        examples=["Grade A"]
+    )
+    overall_condition: str = Field(
+        "excellent", 
+        description="'excellent', 'good', 'fair', 'poor', or 'unusable'",
+        examples=["excellent"]
+    )
+    recommended_action: str = Field(
+        "restock", 
+        description="Disposition routing: 'restock' (sellable stock), 'refurbish' (repair queue), 'quarantine' (vendor hold), or 'scrap' (salvage)",
+        examples=["restock"]
+    )
+    notes: Optional[str] = Field(
+        "Packaging intact, original factory seal verified, all cables and manual present in mint condition.", 
+        description="Detailed physical checklist notes",
+        examples=["Packaging intact, original factory seal verified, all cables and manual present in mint condition."]
+    )
+    checklist_passed: Optional[bool] = Field(
+        True, 
+        description="Whether multi-point physical verification passed",
+        examples=[True]
+    )
+
+    model_config = {
+        "json_schema_extra": {
+            "examples": [
+                {
+                    "shipment_id": "RTS-2026-000001",
+                    "inspector_id": "INSP-WH-01",
+                    "quality_grade": "Grade A",
+                    "overall_condition": "excellent",
+                    "recommended_action": "restock",
+                    "notes": "Packaging intact, original factory seal verified, all cables and manual present in mint condition.",
+                    "checklist_passed": True
+                },
+                {
+                    "shipment_id": "RTS-2026-000002",
+                    "inspector_id": "INSP-WH-02",
+                    "quality_grade": "Grade C",
+                    "overall_condition": "fair",
+                    "recommended_action": "refurbish",
+                    "notes": "Cosmetic bezel scratch on left side; functional components pass diagnostic test. Routed to refurbishment.",
+                    "checklist_passed": False
+                },
+                {
+                    "shipment_id": "RTS-2026-000003",
+                    "inspector_id": "INSP-WH-03",
+                    "quality_grade": "Grade D",
+                    "overall_condition": "unusable",
+                    "recommended_action": "scrap",
+                    "notes": "Water ingress damage and shattered chassis. Zero salvageable components. Routed to recycling scrap.",
+                    "checklist_passed": False
+                }
+            ]
+        }
+    }
+
+
+class AdminRecordCreate(BaseModel):
+    record: Dict[str, Any] = Field(
+        ..., 
+        description="Key-value dictionary matching the selected table's schema columns",
+        examples=[
+            {
+                "customer_id": "CUST-IND-099",
+                "name": "Karan Malhotra",
+                "email": "karan.malhotra@example.in",
+                "phone": "+91 98765 43210",
+                "city": "Hyderabad",
+                "state": "Telangana",
+                "tier": "Premium",
+                "wallet_balance_inr": 15000.0
+            }
+        ]
+    )
+
+    model_config = {
+        "json_schema_extra": {
+            "examples": [
+                {
+                    "record": {
+                        "customer_id": "CUST-IND-099",
+                        "name": "Karan Malhotra",
+                        "email": "karan.malhotra@example.in",
+                        "phone": "+91 98765 43210",
+                        "city": "Hyderabad",
+                        "state": "Telangana",
+                        "tier": "Premium",
+                        "wallet_balance_inr": 15000.0
+                    }
+                }
+            ]
+        }
+    }
+
+
+class AdminRecordUpdate(BaseModel):
+    record: Dict[str, Any] = Field(
+        ..., 
+        description="Key-value dictionary including the primary key and updated columns",
+        examples=[
+            {
+                "product_id": "PROD-ELEC-001",
+                "stock_quantity": 300,
+                "unit_price_inr": 129999.0
+            }
+        ]
+    )
+
+    model_config = {
+        "json_schema_extra": {
+            "examples": [
+                {
+                    "record": {
+                        "product_id": "PROD-ELEC-001",
+                        "stock_quantity": 300,
+                        "unit_price_inr": 129999.0
+                    }
+                }
+            ]
+        }
+    }
+
+
+class AdminBulkDeleteRequest(BaseModel):
+    pk_values: List[str] = Field(
+        ..., 
+        description="List of primary key values to delete in bulk",
+        examples=[["ORD-DELIV-CUST001-09", "ORD-DELIV-CUST001-10"]]
+    )
+
+    model_config = {
+        "json_schema_extra": {
+            "examples": [
+                {
+                    "pk_values": ["ORD-DELIV-CUST001-09", "ORD-DELIV-CUST001-10"]
+                }
+            ]
+        }
+    }
 
 
 # ─────────────────────────────────────────────────────────────────────────────
 # API Endpoints
 # ─────────────────────────────────────────────────────────────────────────────
 
-@app.get("/api/v1/health")
+@app.get("/api/v1/health", tags=["System Health"], summary="System Health & Diagnostic Status")
 def health_check():
     has_db = os.path.exists(DB_PATH)
     return {
@@ -116,7 +434,7 @@ def health_check():
     }
 
 
-@app.get("/api/v1/customers")
+@app.get("/api/v1/customers", tags=["Customer Portal"], summary="List Customers (with 3 Core Demo Profiles)")
 def get_customers(limit: int = 10):
     conn = get_db()
     cursor = conn.cursor()
@@ -153,7 +471,7 @@ def get_customers(limit: int = 10):
     return rows
 
 
-@app.get("/api/v1/customer/{customer_id}/summary")
+@app.get("/api/v1/customer/{customer_id}/summary", tags=["Customer Portal"], summary="Get Customer Wallet Balance & Return Summary")
 def get_customer_summary(customer_id: str):
     cid = normalize_customer_id(customer_id)
     conn = get_db()
@@ -241,7 +559,7 @@ def get_customer_summary(customer_id: str):
     }
 
 
-@app.get("/api/v1/customer/{customer_id}/orders")
+@app.get("/api/v1/customer/{customer_id}/orders", tags=["Customer Portal"], summary="Get Customer Orders with 7-Day Policy Evaluation")
 def get_customer_orders(customer_id: str):
     cid = normalize_customer_id(customer_id)
     conn = get_db()
@@ -324,7 +642,7 @@ def get_customer_orders(customer_id: str):
     return orders
 
 
-@app.get("/api/v1/customer/{customer_id}/returns")
+@app.get("/api/v1/customer/{customer_id}/returns", tags=["Customer Portal"], summary="Get Customer Return Requests & RTS Carrier Tracking")
 def get_customer_returns(customer_id: str):
     cid = normalize_customer_id(customer_id)
     conn = get_db()
@@ -350,7 +668,7 @@ def get_customer_returns(customer_id: str):
     return rows
 
 
-@app.get("/api/v1/customer/{customer_id}/refunds")
+@app.get("/api/v1/customer/{customer_id}/refunds", tags=["Customer Portal"], summary="Get Customer Wallet Refund Transactions (INR ₹)")
 def get_customer_refunds(customer_id: str):
     cid = normalize_customer_id(customer_id)
     conn = get_db()
@@ -370,7 +688,7 @@ def get_customer_refunds(customer_id: str):
     return rows
 
 
-@app.post("/api/v1/customer/return-in-transit")
+@app.post("/api/v1/customer/return-in-transit", tags=["Customer Portal"], summary="Rule A: In-Transit Instant Cancellation & Auto-Refund (Zero-Touch)")
 def return_in_transit(req: InTransitReturnRequest):
     """
     Case A: Order is in 'shipping' stage.
@@ -476,7 +794,7 @@ def return_in_transit(req: InTransitReturnRequest):
     }
 
 
-@app.post("/api/v1/customer/request-return")
+@app.post("/api/v1/customer/request-return", tags=["Customer Portal"], summary="Rule B: Submit Delivered Return Request (7-Day Policy Window)")
 def request_delivered_return(req: DeliveredReturnRequest):
     """
     Case B: Product delivered within 7 days.
@@ -584,7 +902,7 @@ def request_delivered_return(req: DeliveredReturnRequest):
     }
 
 
-@app.get("/api/v1/operations/requests")
+@app.get("/api/v1/operations/requests", tags=["Operations Management"], summary="Filter Operations Return Queue by Status")
 def get_operations_requests(status: Optional[str] = None, limit: int = 50):
     conn = get_db()
     cursor = conn.cursor()
@@ -620,12 +938,12 @@ def get_operations_requests(status: Optional[str] = None, limit: int = 50):
     return rows
 
 
-@app.get("/api/v1/operations/pending-requests")
+@app.get("/api/v1/operations/pending-requests", tags=["Operations Management"], summary="Get Pending Returns Requiring Manager Approval")
 def get_pending_requests():
     return get_operations_requests(status="pending", limit=50)
 
 
-@app.post("/api/v1/operations/decide")
+@app.post("/api/v1/operations/decide", tags=["Operations Management"], summary="Approve/Reject Return Request with Policy Override")
 def decide_return_request(decision: OpsManagerDecision):
     conn = get_db()
     cursor = conn.cursor()
@@ -824,7 +1142,7 @@ def decide_return_request(decision: OpsManagerDecision):
         raise HTTPException(status_code=400, detail="Invalid action. Use 'approve' or 'reject'.")
 
 
-@app.get("/api/v1/warehouse/shipments")
+@app.get("/api/v1/warehouse/shipments", tags=["Warehouse & Disposition"], summary="List Inbound Return Shipments (RTS-...)")
 def get_warehouse_shipments(limit: int = 50):
     conn = get_db()
     cursor = conn.cursor()
@@ -845,7 +1163,7 @@ def get_warehouse_shipments(limit: int = 50):
     return rows
 
 
-@app.post("/api/v1/warehouse/receive")
+@app.post("/api/v1/warehouse/receive", tags=["Warehouse & Disposition"], summary="Mark Inbound RTS Shipment as Received at Dock")
 def receive_warehouse_shipment(submit: WarehouseReceiveSubmit):
     conn = get_db()
     cursor = conn.cursor()
@@ -867,7 +1185,7 @@ def receive_warehouse_shipment(submit: WarehouseReceiveSubmit):
     }
 
 
-@app.post("/api/v1/warehouse/inspect")
+@app.post("/api/v1/warehouse/inspect", tags=["Warehouse & Disposition"], summary="Physical Quality Inspection (Grade A-D) & Inventory Disposition Routing")
 def inspect_and_dispose(insp: WarehouseInspectionSubmit):
     """
     Physical inspection and disposition routing.
@@ -981,7 +1299,7 @@ def inspect_and_dispose(insp: WarehouseInspectionSubmit):
     }
 
 
-@app.get("/api/v1/inventory")
+@app.get("/api/v1/inventory", tags=["Warehouse & Disposition"], summary="Get Live Warehouse Sellable Inventory Catalog")
 def get_inventory():
     conn = get_db()
     cursor = conn.cursor()
@@ -991,7 +1309,7 @@ def get_inventory():
     return rows
 
 
-@app.get("/api/v1/dashboard/metrics")
+@app.get("/api/v1/dashboard/metrics", tags=["Analytics & KPIs"], summary="Executive Financial Reconciliation KPIs in INR (₹)")
 def get_dashboard_metrics():
     conn = get_db()
     cursor = conn.cursor()
@@ -1219,7 +1537,7 @@ def get_pending_inspections():
     return rows
 
 
-@app.get("/api/v1/refunds/stats")
+@app.get("/api/v1/refunds/stats", tags=["Analytics & KPIs"], summary="Get Refund Financial Aggregations")
 def get_refund_stats():
     conn = get_db()
     cursor = conn.cursor()
@@ -1233,7 +1551,7 @@ def get_refund_stats():
     }
 
 
-@app.get("/api/v1/dispositions/stats")
+@app.get("/api/v1/dispositions/stats", tags=["Analytics & KPIs"], summary="Get Inventory Disposition Distribution")
 def get_disposition_stats():
     conn = get_db()
     cursor = conn.cursor()
@@ -1243,7 +1561,7 @@ def get_disposition_stats():
     return {"breakdown": breakdown}
 
 
-@app.get("/api/v1/dashboard/stats")
+@app.get("/api/v1/dashboard/stats", tags=["Analytics & KPIs"], summary="Get Dashboard Summary Counts")
 def get_dashboard_stats():
     m = get_dashboard_metrics()
     return {
@@ -1257,19 +1575,19 @@ def get_dashboard_stats():
     }
 
 
-@app.get("/api/v1/dashboard/return-trends")
+@app.get("/api/v1/dashboard/return-trends", tags=["Analytics & KPIs"], summary="Monthly Return Trends vs Orders")
 def get_return_trends():
     m = get_dashboard_metrics()
     return m["monthly_trend"]
 
 
-@app.get("/api/v1/dashboard/disposition-breakdown")
+@app.get("/api/v1/dashboard/disposition-breakdown", tags=["Analytics & KPIs"], summary="Disposition Fate Breakdown (Restock/Refurbish/Scrap)")
 def get_disposition_breakdown():
     m = get_dashboard_metrics()
     return m["disposition_breakdown"]
 
 
-@app.get("/api/v1/dashboard/returns-by-category")
+@app.get("/api/v1/dashboard/returns-by-category", tags=["Analytics & KPIs"], summary="Returns by Retail Product Category")
 def get_returns_by_category():
     conn = get_db()
     cursor = conn.cursor()
@@ -1284,7 +1602,7 @@ def get_returns_by_category():
     return rows
 
 
-@app.get("/api/v1/dashboard/workflow-funnel")
+@app.get("/api/v1/dashboard/workflow-funnel", tags=["Analytics & KPIs"], summary="End-to-End Reverse Logistics Funnel")
 def get_workflow_funnel():
     conn = get_db()
     cursor = conn.cursor()
@@ -1311,7 +1629,7 @@ def get_workflow_funnel():
     ]
 
 
-@app.get("/api/v1/dashboard/anomalies")
+@app.get("/api/v1/dashboard/anomalies", tags=["Analytics & KPIs"], summary="Ground-Truth Fraud & Policy Anomaly Radar")
 def get_dashboard_anomalies(limit: int = 50):
     conn = get_db()
     cursor = conn.cursor()
@@ -1462,7 +1780,7 @@ ADMIN_TABLES = [
 ALLOWED_ADMIN_TABLES = set(t["name"] for t in ADMIN_TABLES)
 
 
-@app.get("/api/v1/admin/tables")
+@app.get("/api/v1/admin/tables", tags=["Admin Master CRUD"], summary="List All 13 Database Tables with Live Row Counts")
 def get_admin_tables_list():
     conn = get_db()
     cursor = conn.cursor()
@@ -1481,7 +1799,7 @@ def get_admin_tables_list():
     return result
 
 
-@app.get("/api/v1/admin/table/{table_name}")
+@app.get("/api/v1/admin/table/{table_name}", tags=["Admin Master CRUD"], summary="Query Paginated Records with Multi-Column Search")
 def get_admin_table_data(
     table_name: str,
     page: int = Query(1, ge=1),
@@ -1534,8 +1852,25 @@ def get_admin_table_data(
     }
 
 
-@app.post("/api/v1/admin/table/{table_name}/record")
-def create_admin_record(table_name: str, payload: Dict[str, Any]):
+@app.post("/api/v1/admin/table/{table_name}/record", tags=["Admin Master CRUD"], summary="Insert Single Record into Table")
+def create_admin_record(
+    table_name: str, 
+    payload: Dict[str, Any] = Body(
+        ...,
+        examples=[
+            {
+                "customer_id": "CUST-IND-099",
+                "name": "Karan Malhotra",
+                "email": "karan.malhotra@example.in",
+                "phone": "+91 98765 43210",
+                "city": "Hyderabad",
+                "state": "Telangana",
+                "tier": "Premium",
+                "wallet_balance_inr": 15000.0
+            }
+        ]
+    )
+):
     if table_name not in ALLOWED_ADMIN_TABLES:
         raise HTTPException(status_code=400, detail=f"Invalid table: {table_name}")
 
@@ -1563,8 +1898,20 @@ def create_admin_record(table_name: str, payload: Dict[str, Any]):
     return {"success": True, "message": f"Record successfully added/replaced in {table_name}!"}
 
 
-@app.put("/api/v1/admin/table/{table_name}/record")
-def update_admin_record(table_name: str, payload: Dict[str, Any]):
+@app.put("/api/v1/admin/table/{table_name}/record", tags=["Admin Master CRUD"], summary="Update Record by Primary Key")
+def update_admin_record(
+    table_name: str, 
+    payload: Dict[str, Any] = Body(
+        ...,
+        examples=[
+            {
+                "product_id": "PROD-ELEC-001",
+                "stock_quantity": 300,
+                "unit_price_inr": 129999.0
+            }
+        ]
+    )
+):
     if table_name not in ALLOWED_ADMIN_TABLES:
         raise HTTPException(status_code=400, detail=f"Invalid table: {table_name}")
 
@@ -1600,11 +1947,18 @@ def update_admin_record(table_name: str, payload: Dict[str, Any]):
     return {"success": True, "message": f"Record {pk_val} in {table_name} updated successfully!"}
 
 
-@app.delete("/api/v1/admin/table/{table_name}/record")
+@app.delete("/api/v1/admin/table/{table_name}/record", tags=["Admin Master CRUD"], summary="Delete Single Record or Bulk Delete")
 def delete_admin_record(
     table_name: str,
-    pk_val: Optional[str] = Query(None),
-    payload: Optional[Dict[str, Any]] = None
+    pk_val: Optional[str] = Query(None, description="Single primary key value to delete"),
+    payload: Optional[Dict[str, Any]] = Body(
+        None,
+        examples=[
+            {
+                "pk_values": ["ORD-DELIV-CUST001-09", "ORD-DELIV-CUST001-10"]
+            }
+        ]
+    )
 ):
     if table_name not in ALLOWED_ADMIN_TABLES:
         raise HTTPException(status_code=400, detail=f"Invalid table: {table_name}")
@@ -1644,7 +1998,7 @@ def delete_admin_record(
     }
 
 
-@app.get("/api/v1/admin/template/{table_name}")
+@app.get("/api/v1/admin/template/{table_name}", tags=["Admin Master CRUD"], summary="Download Table CSV Template with Pre-Filled Sample Row")
 def download_table_template(table_name: str):
     if table_name not in ALLOWED_ADMIN_TABLES:
         raise HTTPException(status_code=400, detail=f"Invalid table: {table_name}")
@@ -1673,7 +2027,7 @@ def download_table_template(table_name: str):
     )
 
 
-@app.post("/api/v1/admin/upload/{table_name}")
+@app.post("/api/v1/admin/upload/{table_name}", tags=["Admin Master CRUD"], summary="Bulk Upload and Ingest CSV Data into Database")
 async def upload_bulk_table_data(table_name: str, file: UploadFile = File(...)):
     if table_name not in ALLOWED_ADMIN_TABLES:
         raise HTTPException(status_code=400, detail=f"Invalid table: {table_name}")
