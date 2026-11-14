@@ -111,13 +111,81 @@ It solves the core operational challenge: **Managing return eligibility, return 
 
 ## Quick Start (Run in 1 Minute)
 
-### 1. Requirements
-- Python 3.10+ (Standard library `sqlite3` and `unittest` included)
-- Installed dependencies: `fastapi`, `uvicorn`, `pandas` (already available in requirements)
+### ⚙️ Exact Local System Environment & Dependency Versions
 
-### 2. Start the RMS Application Server
-Run the single command:
+To ensure 100% bug-free execution without version mismatches or dependency conflicts, this project is developed and verified against the following verified runtime and package stack:
+
+#### 1. System Runtime Engines
+| Component | Verified Version | Notes |
+|---|---|---|
+| **Operating System** | Windows 10 / 11, macOS, Linux (Ubuntu 22.04+) | Cross-platform compatible |
+| **Python** | `3.11.9` (Recommended) / `3.11+` to `3.13.3` | Pinned to `3.11.9` for zero-compile wheels on Render / cloud |
+| **Node.js** | `v20.19.4` (Active LTS) | Required only if rebuilding `frontend/` from source |
+| **npm** | `10.8.2` | Package manager for React frontend |
+| **SQLite** | `3.49.1+` | Embedded engine (standard Python `sqlite3` library) |
+
+#### 2. Python Backend Dependencies (`requirements.txt`)
+| Library | Version | Purpose |
+|---|---|---|
+| **`fastapi`** | `0.115.0` | High-performance asynchronous REST API framework |
+| **`uvicorn[standard]`** | `0.30.6` | Production ASGI web server engine |
+| **`sqlalchemy`** | `2.0.35` | Relational ORM & SQLite database session management |
+| **`pydantic`** | `2.9.2` | Data schema validation and strict type serialization |
+| **`pydantic-settings`** | `2.5.2` | Application settings and environment configuration |
+| **`pandas`** | `2.2.3` | High-speed data manipulation and analytical aggregations |
+| **`numpy`** | `1.26.4` | Numerical vector calculations and seed array generation |
+| **`faker`** | `30.3.0` | Realistic Indian persona generation (names, cities, addresses) |
+| **`python-dateutil`** | `2.9.0.post0`| Date-time arithmetic for 7-day and 14-day policy windows |
+| **`httpx`** | `0.27.2` | Async HTTP client for automated test execution |
+| **`pytest`** | `8.3.3` | Comprehensive test runner |
+| **`aiofiles`** | `23.2.1` | Non-blocking file I/O for reports and CSV exports |
+| **`python-multipart`** | `0.0.9` | Form data and CSV file upload handling |
+
+#### 3. Frontend Technology Stack (`frontend/package.json`)
+| Package | Version | Purpose |
+|---|---|---|
+| **`react`** | `^18.3.1` | Core UI component engine |
+| **`react-dom`** | `^18.3.1` | DOM renderer for React |
+| **`react-router-dom`** | `^6.27.0` | Client-side routing across 5 role dashboards |
+| **`vite`** | `^5.4.9` | Modern ultra-fast frontend build tool |
+| **`tailwindcss`** | `^3.4.14` | Utility-first responsive CSS styling |
+| **`recharts`** | `^2.13.0` | Interactive financial reconciliation & return trends charts |
+| **`axios`** | `^1.7.7` | HTTP REST client with error interceptors |
+| **`@heroicons/react`** | `^2.1.5` | SVG enterprise icon library |
+
+---
+
+### Step-by-Step Local Setup Guide
+
+#### Option A: One-Command Instant Launch (Pre-built)
+The repository comes with the pre-built React frontend in `frontend/dist` and the pre-seeded SQLite database in `data/rms.db`. You can run immediately with Python:
+
 ```bash
+# 1. Clone repository
+git clone https://github.com/Avinashchidurala/V2_YottaFlex-RMS.git
+cd V2_YottaFlex-RMS
+
+# 2. (Recommended) Create clean virtual environment
+python -m venv venv
+# On Windows:
+venv\Scripts\activate
+# On Linux/macOS:
+# source venv/bin/activate
+
+# 3. Install verified dependencies
+pip install -r requirements.txt
+
+# 4. Start the application
+python run_app.py
+```
+
+#### Option B: Rebuilding Frontend from Source (Optional)
+If you wish to modify or customize the React UI:
+```bash
+cd frontend
+npm install
+npm run build
+cd ..
 python run_app.py
 ```
 
