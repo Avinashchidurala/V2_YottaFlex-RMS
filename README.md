@@ -195,21 +195,177 @@ All edge cases are labelled in `data/ground_truth.csv` and never leak into featu
 
 ---
 
+## REST API & Interactive Swagger Documentation
+
+The application exposes **44 production-grade REST API endpoints** fully documented with OpenAPI 3.0 and interactive Swagger UI.
+
+👉 **Swagger UI (Interactive API Explorer)**: [http://localhost:8000/docs](http://localhost:8000/docs)  
+👉 **OpenAPI Schema (Raw JSON)**: [http://localhost:8000/openapi.json](http://localhost:8000/openapi.json)
+
+### Ready-to-Test Real Payload Examples in Swagger
+
+Every endpoint in Swagger UI includes pre-populated, real-data request payloads matching actual records in `data/rms.db`. Simply click **"Try it out"** and **"Execute"** to test live API operations:
+
+#### 1. Customer Portal
+- **`POST /api/v1/customer/return-in-transit`** (Rule A: Zero-Touch Instant Cancellation):
+  ```json
+  {
+    "order_id": "ORD-DELIV-CUST001-01",
+    "customer_id": "CUST-001",
+    "reason": "changed_mind"
+  }
+  ```
+  *Executes instant cancellation: credits John Smith's wallet (+₹) and restocks inventory with zero manager review.*
+
+- **`POST /api/v1/customer/request-return`** (Rule B: 7-Day Delivered Return Request):
+  ```json
+  {
+    "order_id": "ORD-DELIV-CUST001-02",
+    "order_line_id": "LINE-DELIV-CUST001-02-01",
+    "customer_id": "CUST-001",
+    "quantity": 1,
+    "reason": "defective",
+    "notes": "Device does not power on out of the box. Display remains unresponsive."
+  }
+  ```
+  *Verifies 7-day window, validates category exclusions, and routes to Operations Manager queue.*
+
+#### 2. Operations Management
+- **`POST /api/v1/operations/decide`** (Approve / Reject with Policy Override):
+  * **Standard Approval**:
+    ```json
+    {
+      "request_id": "RMA-2026-000001",
+      "action": "approve",
+      "override_policy": false,
+      "override_notes": "Standard 7-day policy approval by Operations Manager"
+    }
+    ```
+  * **Executive Policy Override (Late Return Exception)**:
+    ```json
+    {
+      "request_id": "RMA-2026-000002",
+      "action": "approve",
+      "override_policy": true,
+      "override_notes": "Executive override granted for VIP customer John Smith (CUST-001)"
+    }
+    ```
+  * **Rejection with Documented Policy Violation**:
+    ```json
+    {
+      "request_id": "RMA-2026-000003",
+      "action": "reject",
+      "override_policy": false,
+      "rejection_reason": "Return window exceeded (> 14 days) and customer is non-VIP tier."
+    }
+    ```
+
+#### 3. Warehouse & Disposition
+- **`POST /api/v1/warehouse/receive`** (Inbound Dock Intake):
+  ```json
+  {
+    "shipment_id": "RTS-2026-000001"
+  }
+  ```
+- **`POST /api/v1/warehouse/inspect`** (Physical Quality Grading & Disposition):
+  * **Grade A &rarr; Restock** (Increments sellable inventory stock):
+    ```json
+    {
+      "shipment_id": "RTS-2026-000001",
+      "inspector_id": "INSP-WH-01",
+      "quality_grade": "Grade A",
+      "overall_condition": "excellent",
+      "recommended_action": "restock",
+      "notes": "Packaging intact, factory seal verified, all cables present in mint condition.",
+      "checklist_passed": true
+    }
+    ```
+  * **Grade C &rarr; Refurbish** (Routes away from sellable stock):
+    ```json
+    {
+      "shipment_id": "RTS-2026-000002",
+      "inspector_id": "INSP-WH-02",
+      "quality_grade": "Grade C",
+      "overall_condition": "fair",
+      "recommended_action": "refurbish",
+      "notes": "Cosmetic bezel scratch on left side; functional components pass diagnostic test.",
+      "checklist_passed": false
+    }
+    ```
+  * **Grade D &rarr; Scrap** (Salvaged/Scrapped):
+    ```json
+    {
+      "shipment_id": "RTS-2026-000003",
+      "inspector_id": "INSP-WH-03",
+      "quality_grade": "Grade D",
+      "overall_condition": "unusable",
+      "recommended_action": "scrap",
+      "notes": "Water ingress damage and shattered chassis. Zero salvageable components.",
+      "checklist_passed": false
+    }
+    ```
+
+#### 4. Admin Master CRUD
+- **`POST /api/v1/admin/table/customers/record`** (Manual Record Creation):
+  ```json
+  {
+    "customer_id": "CUST-IND-099",
+    "name": "Karan Malhotra",
+    "email": "karan.malhotra@example.in",
+    "phone": "+91 98765 43210",
+    "city": "Hyderabad",
+    "state": "Telangana",
+    "tier": "Premium",
+    "wallet_balance_inr": 15000.0
+  }
+  ```
+- **`PUT /api/v1/admin/table/inventory/record`** (Update Stock by Primary Key):
+  ```json
+  {
+    "product_id": "PROD-ELEC-001",
+    "stock_quantity": 300,
+    "unit_price_inr": 129999.0
+  }
+  ```
+- **`DELETE /api/v1/admin/table/orders/record`** (Bulk Delete):
+  ```json
+  {
+    "pk_values": ["ORD-DELIV-CUST001-09", "ORD-DELIV-CUST001-10"]
+  }
+  ```
+
+---
+
 ## REST API Endpoints Overview
 
-| Method | Endpoint | Description |
-|---|---|---|
-| `GET` | `/api/v1/health` | Health check & system time |
-| `GET` | `/api/v1/customers` | List customers (including 3 core profiles) |
-| `GET` | `/api/v1/customer/{customer_id}/orders` | Customer order history with 7-day eligibility calculation |
-| `POST` | `/api/v1/customer/return-in-transit` | **Rule A**: Zero-touch auto return for shipping stage orders |
-| `POST` | `/api/v1/customer/request-return` | **Rule B**: Submit delivered item return (7-day window) |
-| `GET` | `/api/v1/operations/pending-requests` | Fetch pending return requests queue for Operations Manager |
-| `POST` | `/api/v1/operations/decide` | Approve or reject return request (updates wallet & inventory) |
-| `GET` | `/api/v1/warehouse/shipments` | List inbound return shipments (RTS-...) |
-| `POST` | `/api/v1/warehouse/inspect` | Record quality inspection & disposition routing |
-| `GET` | `/api/v1/inventory` | Real-time warehouse product stock catalog |
-| `GET` | `/api/v1/dashboard/metrics` | Financial ledger: Gross Revenue, Refunds, Net Revenue, KPIs |
+| Tag | Method | Endpoint | Description |
+|---|---|---|---|
+| **System Health** | `GET` | `/api/v1/health` | Health check, DB file path & system time |
+| **Customer Portal** | `GET` | `/api/v1/customers` | List customers (including 3 core sample profiles) |
+| **Customer Portal** | `GET` | `/api/v1/customer/{customer_id}/summary` | Customer profile, total spent, active returns & wallet balance (₹) |
+| **Customer Portal** | `GET` | `/api/v1/customer/{customer_id}/orders` | Customer order history with 7-day policy eligibility check |
+| **Customer Portal** | `GET` | `/api/v1/customer/{customer_id}/returns` | Customer returns list with carrier RTS tracking number |
+| **Customer Portal** | `GET` | `/api/v1/customer/{customer_id}/refunds` | Customer wallet refund transaction history in INR (₹) |
+| **Customer Portal** | `POST` | `/api/v1/customer/return-in-transit` | **Rule A**: Zero-touch auto return for shipping stage orders |
+| **Customer Portal** | `POST` | `/api/v1/customer/request-return` | **Rule B**: Submit delivered item return (7-day window) |
+| **Operations** | `GET` | `/api/v1/operations/requests` | Operations return queue (filterable by pending, approved, rejected, overrides) |
+| **Operations** | `GET` | `/api/v1/operations/pending-requests` | Fetch pending return requests queue for Operations Manager |
+| **Operations** | `POST` | `/api/v1/operations/decide` | Approve or reject return request (with policy override support) |
+| **Warehouse** | `GET` | `/api/v1/warehouse/shipments` | List inbound return shipments (`RTS-2026-NNNNNN`) |
+| **Warehouse** | `POST` | `/api/v1/warehouse/receive` | Mark inbound RTS shipment as received at warehouse dock |
+| **Warehouse** | `POST` | `/api/v1/warehouse/inspect` | Record quality inspection (Grade A–D) & disposition routing |
+| **Warehouse** | `GET` | `/api/v1/inventory` | Real-time warehouse product stock catalog |
+| **Analytics** | `GET` | `/api/v1/dashboard/metrics` | Executive financial ledger: Gross Revenue, Refunds, Net Revenue (₹) |
+| **Analytics** | `GET` | `/api/v1/dashboard/return-trends` | Monthly return trends vs orders |
+| **Analytics** | `GET` | `/api/v1/dashboard/disposition-breakdown` | Disposition distribution (Restock, Refurbish, Scrap) |
+| **Analytics** | `GET` | `/api/v1/dashboard/anomalies` | Ground-truth policy and fraud anomaly radar |
+| **Admin Master** | `GET` | `/api/v1/admin/tables` | List all 13 database tables and live row counts |
+| **Admin Master** | `GET` | `/api/v1/admin/table/{table_name}` | Query paginated table records with multi-column text search |
+| **Admin Master** | `POST` | `/api/v1/admin/table/{table_name}/record` | Insert new record manually into database table |
+| **Admin Master** | `PUT` | `/api/v1/admin/table/{table_name}/record` | Update existing record by primary key |
+| **Admin Master** | `DELETE` | `/api/v1/admin/table/{table_name}/record` | Delete single record or bulk records |
+| **Admin Master** | `GET` | `/api/v1/admin/template/{table_name}` | Download pre-filled CSV table template with sample row |
+| **Admin Master** | `POST` | `/api/v1/admin/upload/{table_name}` | Bulk upload and ingest CSV data directly into database |
 
 ---
 
