@@ -54,6 +54,50 @@ It solves the core operational challenge: **Managing return eligibility, return 
 
 ---
 
+## 📸 Application Screenshots & Interactive Dashboards
+
+### 1. Customer Self-Service Portal (Dynamic 3 Sample Customers)
+> Switch seamlessly between **John Smith (VIP)**, **Sarah Johnson (Premium)**, and **Michael Brown (Standard)** with live wallet balance tracking, 7-day return eligibility, and 1-click in-transit cancellations.
+
+![Customer Portal](docs/screenshots/01_customer_portal.jpg)
+
+---
+
+### 2. Operations Manager Review Queue
+> Real-time review queue with pending approval counts, return reasons, days since delivery, 1-click Approve/Reject, and executive policy overrides.
+
+![Operations Review Queue](docs/screenshots/02_operations_queue.jpg)
+
+---
+
+### 3. Store / Warehouse Inbound Shipment Intake & Quality Inspection
+> Reverse logistics intake (`RTS-2026-NNNNNN`), dock receiving, Grade A–D physical quality grading, and automated disposition routing.
+
+![Warehouse Intake & Inspection](docs/screenshots/03_warehouse_intake.jpg)
+
+---
+
+### 4. Real-Time Restocked Warehouse Inventory Catalog
+> Live stock counts that automatically increment upon approved returns and restock dispositions, showing units returned and returnability flags.
+
+![Warehouse Inventory Catalog](docs/screenshots/04_warehouse_inventory.jpg)
+
+---
+
+### 5. Analyst & Merchandising KPI Analytics Dashboard
+> Complete financial reconciliation in INR (₹): Gross Sales Revenue vs Refunds Processed vs Net Retention, monthly volume trends, disposition distribution, and return reasons.
+
+![Analytics & Financial Dashboard](docs/screenshots/05_analytics_dashboard.png)
+
+---
+
+### 6. Admin Master Data Management & Database Operations (SQLite Studio)
+> Live CRUD operations across all 13 database tables, multi-column search, CSV schema template downloads, and bulk spreadsheet ingestion.
+
+![Admin Master Database Management](docs/screenshots/06_admin_master.jpg)
+
+---
+
 ## Architecture Diagram
 
 ```
