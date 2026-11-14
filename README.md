@@ -6,6 +6,16 @@
 ![Currency](https://img.shields.io/badge/Currency-INR%20₹-orange)
 ![Deterministic Seed](https://img.shields.io/badge/Seed-20261022-purple)
 ![License](https://img.shields.io/badge/License-MIT-yellow)
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Render-46E3B7?style=flat&logo=render&logoColor=white)](https://v2-yottaflex-rms.onrender.com/)
+
+---
+
+## 🌐 Live Production Deployment
+
+The application is deployed and live on Render:
+- 🚀 **Live Web Application**: [YottaFlex RMS - Enterprise Return Management System](https://v2-yottaflex-rms.onrender.com/)
+- 📖 **Interactive Swagger API Docs**: [Swagger OpenAPI Specification](https://v2-yottaflex-rms.onrender.com/docs)
+- 🔍 **Live System Health Check**: [API Health Endpoint](https://v2-yottaflex-rms.onrender.com/api/v1/health)
 
 ---
 

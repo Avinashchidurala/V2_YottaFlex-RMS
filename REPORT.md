@@ -4,9 +4,11 @@
 **Target Organization**: YottaFlex AI Coding Challenge / Technical Assessment  
 **Author**: Senior Full-Stack Engineer / Candidate Submission  
 **Repository**: [https://github.com/Avinashchidurala/V2_YottaFlex-RMS.git](https://github.com/Avinashchidurala/V2_YottaFlex-RMS.git)  
+**Live Production URL**: [https://v2-yottaflex-rms.onrender.com/](https://v2-yottaflex-rms.onrender.com/)  
+**Live Swagger API Docs**: [https://v2-yottaflex-rms.onrender.com/docs](https://v2-yottaflex-rms.onrender.com/docs)  
 **Workspace Path**: `C:\Users\avina\Downloads\V2_Yotta flex` / `Avi_Yotta_flex`  
-**Application Server URL**: [http://localhost:8000](http://localhost:8000)  
-**API Documentation (Swagger UI)**: [http://localhost:8000/docs](http://localhost:8000/docs)  
+**Application Server URL (Local)**: [http://localhost:8000](http://localhost:8000)  
+**API Documentation (Swagger UI - Local)**: [http://localhost:8000/docs](http://localhost:8000/docs)  
 **Date**: November 14, 2026  
 **Deterministic PRNG Seed**: `20261022`  
 **Standard Currency**: Indian Rupee (INR - ₹)  
