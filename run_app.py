@@ -1453,9 +1453,7 @@ def export_returns_csv():
     output = io.StringIO()
     output.write("request_id,order_id,customer_id,customer_name,request_date,reason,status,notes,override_flag,product_name,order_line_total_inr,refund_id,net_refund_inr,refund_status\n")
     for r in rows:
-        row_str = [
-            f'"{str(val or "").replace("\"", "\"\"")}"' for val in r
-        ]
+        row_str = ['"' + str(val or "").replace('"', '""') + '"' for val in r]
         output.write(",".join(row_str) + "\n")
 
     output.seek(0)
@@ -2016,7 +2014,7 @@ def download_table_template(table_name: str):
     output = io.StringIO()
     output.write(",".join(cols) + "\n")
     if sample_row:
-        sample_vals = [f'"{str(val or "").replace("\"", "\"\"")}"' for val in sample_row]
+        sample_vals = ['"' + str(val or "").replace('"', '""') + '"' for val in sample_row]
         output.write(",".join(sample_vals) + "\n")
 
     output.seek(0)
