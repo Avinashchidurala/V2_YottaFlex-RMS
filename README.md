@@ -122,7 +122,14 @@ To ensure 100% bug-free execution without version mismatches or dependency confl
 | **Python** | `3.11.9` (Recommended) / `3.11+` to `3.13.3` | Pinned to `3.11.9` for zero-compile wheels on Render / cloud |
 | **Node.js** | `v20.19.4` (Active LTS) | Required only if rebuilding `frontend/` from source |
 | **npm** | `10.8.2` | Package manager for React frontend |
-| **SQLite** | `3.49.1+` | Embedded engine (standard Python `sqlite3` library) |
+| **SQLite** | `3.49.1+` | Embedded serverless database (standard Python `sqlite3` library; zero setup) |
+
+> [!NOTE]
+> **Zero External Database Configuration (Self-Contained SQLite 3)**:
+> - This application uses an embedded **SQLite 3 database (`data/rms.db`)**.
+> - You do **NOT** need to install, configure, or run PostgreSQL, MySQL, or Docker containers.
+> - The database comes fully pre-seeded with all 13 relational tables and 30,000+ records.
+> - To inspect the live database with a GUI, you can open `data/rms.db` directly in **DBeaver**, **TablePlus**, or **DB Browser for SQLite**.
 
 #### 2. Python Backend Dependencies (`requirements.txt`)
 | Library | Version | Purpose |
